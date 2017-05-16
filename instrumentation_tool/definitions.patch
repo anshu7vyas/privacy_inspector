@@ -1,0 +1,5 @@
+1311a1312,1315
+> $(hide) if [[ $(PRIVATE_CLASS_INTERMEDIATES_DIR) == *"framework_intermediates"* ]]; then \
+>        $(ASPECTJ_HOME)/post-compile-weaving.sh  $(PRIVATE_CLASS_INTERMEDIATES_DIR); \
+>  fi
+>  
