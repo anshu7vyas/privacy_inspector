@@ -2,6 +2,7 @@ package aspectj;
 
 import java.io.IOException;
 import java.io.*;
+import java.nio.ByteBuffer;
 
 /**
  * Created by av7 on 4/24/17.
@@ -37,11 +38,21 @@ public class ByteForByte {
         return ret;
     }
 
-    public static byte[] doubleToByteArray(double value) {
+    public static byte[] double2Str2Bytes(double value) {
         return String.valueOf(value).getBytes();
     }
 
-    public static byte[] intToByteArray(int x) throws IOException {
+    public static byte[] double2Bytes(double value) {
+        byte[] bytes = new byte[AspectConstants.DOUBLE_BYTE_SIZE];
+        ByteBuffer.wrap(bytes).putDouble(value);
+        return bytes;
+    }
+
+    public static byte[] str2Bytes(String value) {
+        return value.getBytes();
+    }
+
+    public static byte[] int2Bytes(int x) throws IOException {
     ByteArrayOutputStream bos = new ByteArrayOutputStream();
     DataOutputStream out = new DataOutputStream(bos);
     out.writeInt(x);
