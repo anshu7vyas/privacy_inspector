@@ -48,31 +48,21 @@ public class ByteForByte {
         return bytes;
     }
 
+    public static double bytes2Double(byte[] value) {
+        return ByteBuffer.wrap(value).getDouble();
+    }
+
     public static byte[] str2Bytes(String value) {
         return value.getBytes();
     }
 
     public static byte[] int2Bytes(int x) throws IOException {
-    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    DataOutputStream out = new DataOutputStream(bos);
-    out.writeInt(x);
-    out.close();
-    byte[] intBytes = bos.toByteArray();
-    bos.close();
-    return intBytes;
-}
-
-    /*public static void main(String[] args) throws IOException {
-        String arr1 = "91.1 and 91.1 and 915584987";
-        byte[] barr1 = arr1.getBytes();
-        System.out.write(barr1);
-        System.out.println();
-
-
-        byte[] a = toByteArray(-91.1);
-        byte[] b = toByteArray(-91.1);
-        byte[] c = "91558.89".getBytes();
-        System.out.println(find(barr1, c));
-        System.out.println(find(a,b));
-    }*/
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(bos);
+        out.writeInt(x);
+        out.close();
+        byte[] intBytes = bos.toByteArray();
+        bos.close();
+        return intBytes;
+    }
 }
