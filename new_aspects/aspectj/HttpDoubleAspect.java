@@ -53,7 +53,7 @@ public class HttpDoubleAspect {
   public static void copyToBuffer(byte[] arr) {
       for (int i = 0; i <= arr.length; i++) {
         circBuffer[index] = arr[i];
-        index = (index+1)%(AspectConstants.DOUBLE_BYTE_SIZE);
+        index = (index+1)%(arr.length);
       }
   }
 }

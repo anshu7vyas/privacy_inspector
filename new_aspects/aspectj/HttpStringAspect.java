@@ -59,7 +59,7 @@ public class HttpStringAspect {
   public static void copy2StrBuffer(byte[] arr) {
       for (int i = 0; i <= arr.length; i++) {
         circBuffer[index] = arr[i];
-        index = (index+1)%(AspectConstants.IMEI_BYTE_SIZE);
+        index = (index+1)%(arr.length);
       }
    }
 }

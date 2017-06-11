@@ -17,20 +17,18 @@ Logging logger = Logging.getInstance();
 
 private boolean http_flag = false;
 private boolean location_flag = false;
-public final static double ASPECT_LATITUDE = 91.1;
-public final static double ASPECT_LONGITUDE = 91.1;
 // private double lat = 0.0;
 // private double longi = 0.0;
 Location location = new Location("aspectProvider");
 
 @Around("execution (double android.location.Location.getLatitude(..))")
     public double adviceGetLatitude(final ProceedingJoinPoint joinPoint) throws Throwable {
-        return ASPECT_LATITUDE;
+        return AspectConstants.ASPECT_LATITUDE;
     }
 
 @Around("execution (double android.location.Location.getLongitude(..))")
     public double adviceGetLongitude(final ProceedingJoinPoint joinPoint) throws Throwable {
-        return ASPECT_LONGITUDE;
+        return AspectConstants.ASPECT_LONGITUDE;
     }
 
 @Around("execution (* android.location.LocationManager.getLastKnownLocation(..))")
