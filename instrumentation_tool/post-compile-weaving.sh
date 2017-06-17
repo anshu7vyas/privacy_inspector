@@ -4,7 +4,7 @@ TEMP_DIR=$ASPECTJ_HOME/target_classes/
 
 CLASSES_DIR=$1
 
-CLASSPATH=$ASPECTJ_HOME/lib/aspectjrt.jar:$ASPECTJ_HOME/lib/aspectjtools.jar:$2
+CLASSPATH=$ASPECTJ_HOME/lib/aspectjrt.jar:$ASPECTJ_HOME/lib/aspectjtools.jar:$2:$ASPECTJ_HOME/lib/juniversalchardet-1.0.3.jar:$3
 
 mkdir $ASPECTJ_HOME/temporary_classes/
 
