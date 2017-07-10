@@ -71,7 +71,7 @@ public class HttpStringAspect {
 	}
 
 	/**
-	 * Helper function
+	 * Helper function -test the method
 	 */
 	public static byte[] serializeObject(Object obj) throws IOException
 	{

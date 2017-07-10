@@ -18,13 +18,9 @@ public class SlidingBuffer {
 
     public void add(byte b) {
         circularBuffer[index] = b;
-
-        if (!filled && index == (windowSize - 1)) {
+        if(!filled && index == windowSize-1)
             filled = true;
-            index = (index + 1) % windowSize;                               //move index in circular way
-        } else {
-            index++;
-        }
+        index = (index+1) % windowSize;                                 // move index in circular fashion
     }
 
     public boolean isFilled() {
@@ -32,6 +28,17 @@ public class SlidingBuffer {
     }
 
     public byte[] getCircularBuffer() {
-        return circularBuffer;
+        if (!filled) {
+            return null;
+        }
+        byte[] temp = new byte[windowSize];
+        int tempIndex = 0;
+        int i = index;
+        while(i != (index - 1 + windowSize) % windowSize) {
+            temp[tempIndex++] = circularBuffer[i];
+            i = (i + 1) % windowSize;
+        }
+        temp[tempIndex] = circularBuffer[i];
+        return temp;
     }
 }
