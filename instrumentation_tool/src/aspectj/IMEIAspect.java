@@ -13,10 +13,8 @@ public class IMEIAspect {
 
 Logging logger = Logging.getInstance();
 
-public final static String ASPECT_IMEI = "915584987";
-
 @Around("execution (String android.telephony.TelephonyManager.getDeviceId(..))")
     public String adviceGetIMEI(final ProceedingJoinPoint joinPoint) throws Throwable {
-        return ASPECT_IMEI;
+        return AspectConstants.ASPECT_IMEI;
     }
 }
