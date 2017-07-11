@@ -16,6 +16,7 @@ import java.io.ObjectOutputStream;
 public class HttpStringAspect {
 
 	SlidingBuffer imeiBuffer;
+	String viewEncoding;
 
 	Logging logger = Logging.getInstance();
 
@@ -26,19 +27,19 @@ public class HttpStringAspect {
 
 	@Before("execution (* android.app.Activity.onCreate(..))")
 	public void beforeOnCreate(JoinPoint joinPoint) {
-		imeiBuffer = new byte[AspectConstants.IMEI_BYTE_SIZE];
+		imeiBuffer = new SlidingBuffer(AspectConstants.IMEI_BYTE_SIZE);
 		//logger.printingLog(joinPoint.getTarget().getClass().toString());
 	}
 
 	//String aspects
 	@Around("execution(synchronized void org.apache.harmony.luni.internal.net.www.protocol.http.RetryableOutputStream.write(..))")
-	public Object adviceWrite(final ProceedingJoinPoint joinPoint) throws Throwable {
+	public Object aroundWrite(final ProceedingJoinPoint joinPoint) throws Throwable {
 		Object arg[] = joinPoint.getArgs();
 		StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
 	   
-		dumpBytes = serializeObject(arg[0]);	//(byte[]) arg[0];
+		dumpBytes = (byte[]) arg[0]; 	//serializeObject(arg[0]);
 
-		for (int i = 0; i <= dumpBytes.length; i++) {
+		for (int i = 0; i < dumpBytes.length; i++) {
             imeiBuffer.add(dumpBytes[i]);
             //System.out.println("imeiBuffer = " + imeiBuffer);
             if (imeiBuffer.isFilled()) {
@@ -56,7 +57,6 @@ public class HttpStringAspect {
 
 					if (transformedDump.equals(mockupTransform)) {
 						logger.printLog("\n\nViolating security policy. Dummy IMEI number have been found at the sink. Error 2", arg[0], stacktrace, joinPoint.getTarget().getClass().toString());
-						break;
 					}
 				}
 			}
@@ -71,19 +71,19 @@ public class HttpStringAspect {
 	}
 
 	/**
-	 * Helper function -test the method
+	 * Helper function
 	 */
-	public static byte[] serializeObject(Object obj) throws IOException
-	{
-		ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
-		ObjectOutputStream oos = new ObjectOutputStream(bytesOut);
-		oos.writeObject(obj);
-		oos.flush();
-		byte[] bytes = bytesOut.toByteArray();
-		bytesOut.close();
-		oos.close();
-		return bytes;
-	}
+	// public static byte[] serializeObject(Object obj) throws IOException
+	// {
+	// 	ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
+	// 	ObjectOutputStream oos = new ObjectOutputStream(bytesOut);
+	// 	oos.writeObject(obj);
+	// 	oos.flush();
+	// 	byte[] bytes = bytesOut.toByteArray();
+	// 	bytesOut.close();
+	// 	oos.close();
+	// 	return bytes;
+	// }
 
 }
 

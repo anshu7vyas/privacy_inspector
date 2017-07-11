@@ -4,14 +4,14 @@ TEMP_DIR=$ASPECTJ_HOME/target_classes/
 
 CLASSES_DIR=$1
 
-CLASSPATH=$ASPECTJ_HOME/lib/aspectjrt.jar:$ASPECTJ_HOME/lib/aspectjtools.jar:$2:$ASPECTJ_HOME/lib/juniversalchardet-1.0.3.jar:$3
+CLASSPATH=$ASPECTJ_HOME/lib/aspectjrt.jar:$ASPECTJ_HOME/lib/aspectjtools.jar:$2:$ASPECTJ_HOME/lib/juniversalchardet.jar:$3
 
 mkdir $ASPECTJ_HOME/temporary_classes/
 
 echo "compiling aspects"
 #TODO: compile all java files in dir $CUSTOM_ASPECT_HOME
 #find $CUSTOM_ASPECT_PATH -type f -name "*.java" -exec javac -classpath $CLASSPATH -g:vars -d $CLASSES_DIR {} \;
-javac -cp $CLASSPATH -g:vars /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/HttpAspect.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/LocationAspect.java /home/av7/ANDROID/WD1/instrumentation_tool/src/android/location/Location.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/Logging.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/IMEIAspect.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/BytesCompare.java -d $ASPECTJ_HOME/temporary_classes/
+javac -cp $CLASSPATH -g:vars /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/HttpStringAspect.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/LocationAspect.java /home/av7/ANDROID/WD1/instrumentation_tool/src/android/location/Location.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/Logging.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/IMEIAspect.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/BytesConversions.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/StringEncodingDetector.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/SlidingBuffer.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/HttpDoubleAspect.java /home/av7/ANDROID/WD1/instrumentation_tool/src/aspectj/AspectConstants.java -d $ASPECTJ_HOME/temporary_classes/
 
 rm -rf $ASPECTJ_HOME/temporary_classes/android/location/Location.class
 cp -r $ASPECTJ_HOME/temporary_classes/* $CLASSES_DIR

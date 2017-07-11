@@ -39,8 +39,8 @@ Location location = new Location("aspectProvider");
         
         Location location = (Location) joinPoint.proceed();
         if (location instanceof Location) {
-            location.setLatitude(ASPECT_LATITUDE);
-            location.setLongitude(ASPECT_LONGITUDE);
+            location.setLatitude(AspectConstants.ASPECT_LATITUDE);
+            location.setLongitude(AspectConstants.ASPECT_LONGITUDE);
         }
         return location;
     }
