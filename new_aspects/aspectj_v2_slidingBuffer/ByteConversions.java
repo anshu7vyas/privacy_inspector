@@ -35,7 +35,7 @@ public class ByteConversions {
 	 * string -> byte[]
 	 */
     public static byte[] str2Bytes(String value) {
-        return value.getBytes("UTF-8");
+        return value.getBytes();
     }
 
     /**
