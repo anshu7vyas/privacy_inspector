@@ -45,7 +45,7 @@ public class HttpStringAspect {
             if (imeiBuffer.isFilled()) {
 				byte[] imeiDumpBytes = imeiBuffer.getCircularBuffer();                       //15 digits filled in the circular buffer
 
-				viewEncoding = StringEncodingDetector.guessEncoding(imeiDumpBytes);          //detect encoding
+				viewEncoding = StringEncodingDetector.suggestEncoding(imeiDumpBytes);          //detect encoding
                 //System.out.println("detected encoding = " + viewEncoding);
 				if (viewEncoding == "UTF-8") {
 					//byte[] mockupIMEIbytes = mockupIMEI.getBytes(viewEncoding);

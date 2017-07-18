@@ -1,5 +1,8 @@
 package aspectj;
 
+import com.ibm.icu.text.CharsetDetector;
+import com.ibm.icu.text.CharsetMatch;
+
 public class StringEncodingDetector {
 
 	public static String suggestEncoding(byte[] bytes) {
