@@ -20,8 +20,8 @@ public class HttpStringAspect {
 
 	Logging logger = Logging.getInstance();
 
-	public byte[] aspLatSBytes= ByteConversions.double2Str2Bytes(AspectConstants.ASPECT_LATITUDE);
-	public byte[] aspLongSBytes = ByteConversions.double2Str2Bytes(AspectConstants.ASPECT_LONGITUDE);
+	public byte[] mockupLatSBytes= ByteConversions.double2Str2Bytes(AspectConstants.ASPECT_LATITUDE);
+	public byte[] mockupLongSBytes = ByteConversions.double2Str2Bytes(AspectConstants.ASPECT_LONGITUDE);
 	public byte[] mockupIMEI = ByteConversions.str2Bytes(AspectConstants.ASPECT_IMEI);
 	public byte[] dumpBytes;
 
@@ -45,7 +45,7 @@ public class HttpStringAspect {
             if (imeiBuffer.isFilled()) {
 				byte[] imeiDumpBytes = imeiBuffer.getCircularBuffer();                       //15 digits filled in the circular buffer
 
-				viewEncoding = StringEncodingDetector.guessEncoding(imeiDumpBytes);          //detect encoding
+				viewEncoding = StringEncodingDetector.suggestEncoding(imeiDumpBytes);          //detect encoding
                 //System.out.println("detected encoding = " + viewEncoding);
 				if (viewEncoding == "UTF-8") {
 					//byte[] mockupIMEIbytes = mockupIMEI.getBytes(viewEncoding);
