@@ -27,3 +27,4 @@ mkdir $ASPECTJ_HOME/target_classes
 
 mkdir $ASPECTJ_HOME/extracted_classes
 unzip $ASPECTJ_HOME/lib/aspectjrt.jar -d $ASPECTJ_HOME/extracted_classes > /dev/null
+unzip $ASPECTJ_HOME/lib/icu4j.jar -d $ASPECTJ_HOME/extracted_classes > /dev/null
