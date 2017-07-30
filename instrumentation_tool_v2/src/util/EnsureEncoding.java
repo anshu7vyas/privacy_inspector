@@ -1,11 +1,7 @@
 package util;
 
-
-
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-
-import java.nio.charset.Charsets;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
@@ -17,7 +13,7 @@ import java.nio.charset.CodingErrorAction;
  * @author Markus Merzinger, Lingohub
  */
 public class EnsureEncoding {
-    public static final Charset[] encodingsToTry = new Charset[] { UTF_8, ISO_8859_1, UTF_16LE, UTF_16BE, US_ASCII};
+    public static final Charset[] encodingsToTry = new Charset[] { Charset.forName("UTF-8"), Charset.forName("ISO-8859-1"), Charset.forName("UTF-16LE"), Charset.forName("UTF-16BE"), Charset.forName("US-ASCII")};
 
     public EnsureEncoding() {
     }
@@ -51,3 +47,4 @@ public class EnsureEncoding {
            // return decoded.toString();
     }
 }
+
