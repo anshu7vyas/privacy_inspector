@@ -1296,25 +1296,28 @@ $(call dump-words-to-file,$(PRIVATE_JAVA_SOURCES),$(dir $(PRIVATE_CLASS_INTERMED
 $(hide) if [ -d "$(PRIVATE_SOURCE_INTERMEDIATES_DIR)" ]; then \
 	    find $(PRIVATE_SOURCE_INTERMEDIATES_DIR) -name '*.java' >> $(dir $(PRIVATE_CLASS_INTERMEDIATES_DIR))/java-source-list; \
 fi
-
-#$(hide) PRIVATE_ALL_JAVA_LIBRARIES=$(PRIVATE_ALL_JAVA_LIBRARIES)
-
 $(hide) tr ' ' '\n' < $(dir $(PRIVATE_CLASS_INTERMEDIATES_DIR))/java-source-list \
     | sort -u > $(dir $(PRIVATE_CLASS_INTERMEDIATES_DIR))/java-source-list-uniq
 $(hide) $(TARGET_JAVAC) -encoding ascii $(PRIVATE_BOOTCLASSPATH) \
     $(addprefix -classpath ,$(strip \
         $(call normalize-path-list,$(PRIVATE_ALL_JAVA_LIBRARIES)))) \
-$(PRIVATE_JAVACFLAGS)  $(strip $(PRIVATE_JAVAC_DEBUG_FLAGS))  $(xlint_unchecked) \
+    $(PRIVATE_JAVACFLAGS) $(strip $(PRIVATE_JAVAC_DEBUG_FLAGS)) $(xlint_unchecked) \
     -extdirs "" -d $(PRIVATE_CLASS_INTERMEDIATES_DIR) \
     \@$(dir $(PRIVATE_CLASS_INTERMEDIATES_DIR))/java-source-list-uniq \
     || ( rm -rf $(PRIVATE_CLASS_INTERMEDIATES_DIR) ; exit 41 )
+$(hide) if [[ $(PRIVATE_CLASS_INTERMEDIATES_DIR) == *"framework_intermediates"* ]]; then \
+       $(ASPECTJ_HOME)/post-compile-weaving.sh  $(PRIVATE_CLASS_INTERMEDIATES_DIR) $(strip  $(call normalize-path-list,$(PRIVATE_ALL_JAVA_LIBRARIES))); \
+ fi
 
+$(hide) if [[ $(PRIVATE_CLASS_INTERMEDIATES_DIR) == *"core_intermediates"* ]]; then \
+       $(ASPECTJ_HOME)/post-compile-weaving.sh  $(PRIVATE_CLASS_INTERMEDIATES_DIR) $(strip  $(call normalize-path-list,$(PRIVATE_ALL_JAVA_LIBRARIES))); \
+	cp -rf $(ASPECTJ_HOME)/extracted_classes/* $(PRIVATE_CLASS_INTERMEDIATES_DIR); \
+ fi
 $(hide) rm -f $(dir $(PRIVATE_CLASS_INTERMEDIATES_DIR))/java-source-list
 $(hide) rm -f $(dir $(PRIVATE_CLASS_INTERMEDIATES_DIR))/java-source-list-uniq
 $(hide) mkdir -p $(dir $@)
 $(hide) jar $(if $(strip $(PRIVATE_JAR_MANIFEST)),-cfm,-cf) \
     $@ $(PRIVATE_JAR_MANIFEST) -C $(PRIVATE_CLASS_INTERMEDIATES_DIR) .
-#$(hide) rm -rf $(PRIVATE_CLASS_INTERMEDIATES_DIR)
 endef
 
 define transform-classes.jar-to-emma
@@ -1326,12 +1329,11 @@ endef
 #TODO: use a smaller -Xmx value for most libraries;
 #      only core.jar and framework.jar need a heap this big.
 # Avoid the memory arguments on Windows, dx fails to load for some reason with them.
-#changed old value -JXmx1536M to JXmx2048M 
 define transform-classes.jar-to-dex
 @echo "target Dex: $(PRIVATE_MODULE)"
 @mkdir -p $(dir $@)
 $(hide) $(DX) \
-    $(if $(findstring windows,$(HOST_OS)),,-JXms16M -JXmx2548M) \
+    $(if $(findstring windows,$(HOST_OS)),,-JXms16M -JXmx1536M) \
     --dex --output=$@ \
     $(if $(NO_OPTIMIZE_DX), \
         --no-optimize) \
