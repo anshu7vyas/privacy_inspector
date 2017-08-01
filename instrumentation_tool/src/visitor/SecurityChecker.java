@@ -9,13 +9,16 @@ import util.Logging;
  * Created by av7 on 7/29/17.
  */
 public class SecurityChecker implements Visitor {
-    private static SecurityChecker securityChecker = new SecurityChecker();
+    private static SecurityChecker securityChecker = null;
     Logging logger = Logging.getInstance();
 
-    private SecurityChecker() {
-
-    }
+    private SecurityChecker() { }
+    
     public static SecurityChecker getInstance() {
+        if (securityChecker == null) {
+            securityChecker = new SecurityChecker();
+        }
+        
         return securityChecker;
     }
 
@@ -55,4 +58,3 @@ public class SecurityChecker implements Visitor {
         }*/
     }
 }
-

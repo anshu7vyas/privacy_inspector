@@ -18,16 +18,21 @@ import org.aspectj.lang.ProceedingJoinPoint;
 @Aspect
 public class HttpAspect implements Observable {
 
-	public byte[] dumpBytes;
+    public byte[] dumpBytes;
     List<Observer> observers = new ArrayList<Observer>();
 
+    public HttpAspect() {
+        registerObserver(BufferManager.getInstance());
+    }
+
     @Override
-    public void addObserver(Observer observer) {
-        observers.add(observer);
+    public void registerObserver(Observer newObserver) {
+        observers.add(newObserver);
     }
     @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
+    public void unregisterObserver(Observer deleteObserver) {
+        int observerIndex = observers.indexOf(deleteObserver);
+        observers.remove(observerIndex);
     }
 
     @Override
@@ -41,7 +46,7 @@ public class HttpAspect implements Observable {
     public Object aroundWrite(final ProceedingJoinPoint joinPoint) throws Throwable {
         Object arg[] = joinPoint.getArgs();
 
-        dumpBytes = (byte[]) arg[0]; 	//serializeObject(arg[0]);
+        dumpBytes = (byte[]) arg[0];    //serializeObject(arg[0]);
 
         for (int i = 0; i < dumpBytes.length; i++) {
             SlidingBuffer.getInstance().add(dumpBytes[i]);
@@ -53,3 +58,5 @@ public class HttpAspect implements Observable {
     }
 
 }
+
+

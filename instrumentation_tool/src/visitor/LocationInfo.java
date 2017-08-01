@@ -6,9 +6,11 @@ package visitor;
 public class LocationInfo implements Visitable {
 
     private byte[] locationBuffer;
+    
     public LocationInfo(byte[] locationBuffer) {
         this.locationBuffer = locationBuffer;
     }
+    
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
