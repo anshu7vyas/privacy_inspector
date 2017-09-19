@@ -2,9 +2,9 @@ package observer;
 
 import util.Constants;
 import util.SlidingBuffer;
-import visitor.ContactInfo;
-import visitor.IMEIInfo;
-import visitor.LocationInfo;
+import visitor.ContactObserver;
+import visitor.IMEIObserver;
+import visitor.LocationObserver;
 import visitor.SecurityChecker;
 
 /**
@@ -17,22 +17,22 @@ public class BufferManager implements Observer {
     private BufferManager() { }
 
     public static BufferManager getInstance() {
-        
         if (bufferManager == null) {
             bufferManager = new BufferManager();
         }
+
         return bufferManager;
     }
 
-    public void update() {
-        IMEIInfo imeiInfo = new IMEIInfo(SlidingBuffer.getInstance().getCircularBuffer(Constants.IMEI_BYTE_SIZE));
-        imeiInfo.accept(SecurityChecker.getInstance());
+    public void update(Object object) {
+        IMEIObserver imeiObserver = new IMEIObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.IMEI_BYTE_SIZE));
+        imeiObserver.accept(SecurityChecker.getInstance());
 
-        LocationInfo locationInfo = new LocationInfo(SlidingBuffer.getInstance().getCircularBuffer(Constants.DOUBLE_BYTE_SIZE));
-        locationInfo.accept(SecurityChecker.getInstance());
+        LocationObserver locationObserver = new LocationObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.DOUBLE_BYTE_SIZE));
+        locationObserver.accept(SecurityChecker.getInstance());
 
-        ContactInfo contactInfo = new ContactInfo(SlidingBuffer.getInstance().getCircularBuffer(Constants.SLIDING_WINDOW_SIZE));
-        contactInfo.accept(SecurityChecker.getInstance());
+        ContactObserver contactObserver = new ContactObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.SLIDING_WINDOW_SIZE));
+        contactObserver.accept(SecurityChecker.getInstance());
 
     }
 }

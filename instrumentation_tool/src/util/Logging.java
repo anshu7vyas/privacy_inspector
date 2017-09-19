@@ -32,9 +32,6 @@ public class Logging {
         final Logger logger = Logger.getLogger("test");
         formatter(logger);
 
-        //get stacktrace
-
-        //StringBuilder stackTraceArray = buildStackTraceString(stacktrace);
         logger.warning("*******************************************\n" + error + "\n\nHere's the StackTrace...\n");
         // for (int i=0; i <stackTraceArray.length; i++) {
         // 	logger.info("\tat " + i +"\n");
@@ -46,3 +43,4 @@ public class Logging {
     }
 
 }
+

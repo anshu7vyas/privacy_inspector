@@ -36,21 +36,22 @@ public class HttpAspect implements Observable {
     }
 
     @Override
-    public void notifyObservers(){
+    public void notifyObservers(Object object){
         for(Observer observer: observers) {
-            observer.update();
+            observer.update(object);
         }
     }
 
     @Around("execution(synchronized void org.apache.harmony.luni.internal.net.www.protocol.http.RetryableOutputStream.write(..))")
     public Object aroundWrite(final ProceedingJoinPoint joinPoint) throws Throwable {
+        Object o = joinPoint.getThis();
         Object arg[] = joinPoint.getArgs();
 
-        dumpBytes = (byte[]) arg[0];    //serializeObject(arg[0]);
+        dumpBytes = (byte[]) arg[0]; 	//serializeObject(arg[0]);
 
         for (int i = 0; i < dumpBytes.length; i++) {
-            SlidingBuffer.getInstance().add(dumpBytes[i]);
-            notifyObservers();
+            SlidingBuffer.getInstance(o).add(dumpBytes[i]);
+            notifyObservers(o);
         }
 
         Object obj = joinPoint.proceed();

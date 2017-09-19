@@ -13,9 +13,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 @Aspect
 public class IMEIAspect {
 
-	@Around("execution (String android.telephony.TelephonyManager.getDeviceId(..))")
-	    public String adviceGetIMEI(final ProceedingJoinPoint joinPoint) throws Throwable {
-	        joinPoint.proceed();
-	        return Constants.ASPECT_IMEI;
-	    }
+    @Around("execution (String android.telephony.TelephonyManager.getDeviceId(..))")
+    public String adviceGetIMEI(final ProceedingJoinPoint joinPoint) throws Throwable {
+        joinPoint.proceed();
+        return Constants.ASPECT_IMEI;
+    }
 }

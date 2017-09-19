@@ -34,7 +34,7 @@ public class ByteConversion {
     /** Probably encoding will matter
      * string -> byte[]
      */
-    public static byte[] str2Bytes(String value) {
+    public static byte[] string2Bytes(String value) {
         return value.getBytes();
     }
 
@@ -54,7 +54,13 @@ public class ByteConversion {
     /**
      * double -> String -> byte[]
      */
-    public static byte[] double2Str2Bytes(double value) {
+    public static byte[] double2String2Bytes(double value) {
         return String.valueOf(value).getBytes();
+    }
+
+
+    public static boolean almostEqualDouble(double a, double b) {
+        if (a == b) return true;
+        return Math.abs(a - b) <= Constants.DOUBLE_EPSILON;
     }
 }
