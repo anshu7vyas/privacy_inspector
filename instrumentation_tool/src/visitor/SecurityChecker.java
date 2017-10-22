@@ -36,7 +36,7 @@ public class SecurityChecker implements Visitor {
         byte[] dumpBytes = contactObserver.getContactBuffer();
         if(dumpBytes != null) {
             String contactInformation = EnsureEncoding.decode(dumpBytes);          //detect encoding
-           if (contactInformation.equals(Constants.ASPECT_CONTACT_NAME) || contactInformation.equals(Constants.ASPECT_CONTACT_NUMBER) || contactInformation.equals(Constants.ASPECT_CONTACT_EMAIL)) {
+           if (contactInformation.equals(Constants.ASPECT_CONTACT_NAME)) {// || contactInformation.equals(Constants.ASPECT_CONTACT_NUMBER) || contactInformation.equals(Constants.ASPECT_CONTACT_EMAIL)) {
                logger.printLog("\n\nERROR 3 :- Violating security policy. Contact Information has been detected in HTTP Stream.", dumpBytes);
            }
         }
@@ -50,13 +50,13 @@ public class SecurityChecker implements Visitor {
             try {
                 Double coordinates = Double.valueOf(coordinatesDecoded);
                 if (ByteConversion.almostEqualDouble(coordinates, Constants.ASPECT_LATITUDE)) {
-                    logger.printLog("\n\nERROR 1 :- Violating security policy. Latitude coordinates has been found in the HTTP Stream.", dumpBytes);
+                    logger.printLog("\n\nERROR 1.0 :- Violating security policy. Latitude coordinates has been detected in the HTTP Stream.", dumpBytes);
                 }
                 if (ByteConversion.almostEqualDouble(coordinates, Constants.ASPECT_LONGITUDE)) {
-                    logger.printLog("\n\nERROR 1 :- Violating security policy. Longitude coordinates has been found in the HTTP Stream.", dumpBytes);
+                    logger.printLog("\n\nERROR 1.1 :- Violating security policy. Longitude coordinates has been detected in the HTTP Stream.", dumpBytes);
                 }
             } catch (NumberFormatException e) {
-
+        
             }
         }
     }
