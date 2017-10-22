@@ -1,7 +1,9 @@
 package visitor;
 
 /**
- * Created by av7 on 7/29/17.
+ * Visitable class for IMEI - defines an accept method that accepts visitor objects
+ *
+ * @author Anshul Vyas
  */
 public class IMEIObserver implements Visitable {
 
@@ -11,11 +13,18 @@ public class IMEIObserver implements Visitable {
         this.imeiBuffer = imeiBuffer;
     }
 
+    /**
+     * Accepts the visitor - SecurityChecker
+     * @param visitor
+     */
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * @return imeiBuffer
+     */
     public byte[] getIMEIBuffer() {
         return imeiBuffer;
     }

@@ -1,8 +1,17 @@
 package visitor;
 
 /**
- * Created by av7 on 7/29/17.
+ * Interface for Visitable - objects that can be visited to run the analysis by the concrete implementation
+ * of our SecurityChecker
+ *
+ * @author Anshul Vyas
  */
 public interface Visitable {
-    public void accept(Visitor visitor);
+
+    /**
+     * accepts a particular visitor
+     *
+     * @param visitor
+     */
+    void accept(Visitor visitor);
 }

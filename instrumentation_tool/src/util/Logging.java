@@ -6,6 +6,11 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+/**
+ * Utility class providing all the method definitions to generate custom logs for an Android app.
+ *
+ * @author Anshul Vyas
+ */
 public class Logging {
 
     private static final Logging logger = new Logging();
@@ -16,6 +21,10 @@ public class Logging {
         return logger;
     }
 
+    /**
+     * Formats the log message using java.util.logging.Formatter
+     * @param logger
+     */
     public void formatter(Logger logger){
         logger.setUseParentHandlers(false);
         Handler conHdlr = new ConsoleHandler();
@@ -28,6 +37,11 @@ public class Logging {
         logger.addHandler(conHdlr);
     }
 
+    /**
+     * Prints the log message with the StackTrace
+     * @param error message
+     * @param arg object
+     */
     public void printLog(String error, Object arg) {
         final Logger logger = Logger.getLogger("test");
         formatter(logger);

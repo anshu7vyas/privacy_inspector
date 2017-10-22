@@ -1,7 +1,5 @@
 package util;
 
-
-
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 
@@ -13,6 +11,7 @@ import java.nio.charset.CodingErrorAction;
 
 /**
  * Helper that takes a byte[] of chars and tries to guess the encoding
+ * ENCODINGS SUPPORTED - UTF-8, UTF-16LE, UTF-16BE, US-ASCII, ISO-8859-1
  *
  * @author Markus Merzinger, Lingohub
  */
@@ -24,6 +23,7 @@ public class EnsureEncoding {
 
     /**
      * will try to convert the given chars to a valid string.
+     *
      * @param chars
      *          characters in an unknown charset
      * @return the chars converted to a String decoded by the first matching {@link Charset}
@@ -42,6 +42,14 @@ public class EnsureEncoding {
         return null;
     }
 
+    /**
+     * decodes the encoding of the byteArray and returns the decoded string.
+     *
+     * @param chars Byte Array
+     * @param encodingToTry
+     * @return decoded String according to encoding detected
+     * @throws CharacterCodingException
+     */
     private static String decode(byte[] chars, Charset encodingToTry) throws CharacterCodingException {
           CharsetDecoder decoder = encodingToTry.newDecoder().onMalformedInput(CodingErrorAction.IGNORE);
 
