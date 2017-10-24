@@ -10,10 +10,10 @@ public class Constants {
     public final static int CONTACT_INFO_BYTE_SIZE = 10;
 
     /* mock-up geo location coordinates */
-    public final static double ASPECT_LATITUDE = 34.93281;      // Line of control - IND PAK border //27.98785;      //Mt. Everest
-    public final static double ASPECT_LONGITUDE = 76.76571;     // Line of control - IND PAK border //86.92503;      //Mt. Everest
-    public final static String ASPECT_LATITUDE_STRING = "34.93281";     
-    public final static String ASPECT_LONGITUDE_STRING = "76.76571";        
+    public final static double ASPECT_LATITUDE = 34.98785;      //93281;      // Line of control - IND PAK border //27.98785;      //Mt. Everest
+    public final static double ASPECT_LONGITUDE = 76.98785;           //76571;     // Line of control - IND PAK border //86.92503;      //Mt. Everest
+//    public final static String ASPECT_LATITUDE_STRING = "34.93281";
+//    public final static String ASPECT_LONGITUDE_STRING = "76.76571";
 
     /* mock-up IMEI */
     public final static String ASPECT_IMEI = "424242424242424"; // 15 digits
