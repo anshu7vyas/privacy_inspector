@@ -58,8 +58,14 @@ public class DataInspector implements Visitor {
 
         if(dumpBytes != null) {
             String contactInformation = EnsureEncoding.decode(dumpBytes);           // detect encoding
-           if (contactInformation.equals(Constants.ASPECT_CONTACT_FIRST_NAME) || contactInformation.equals(Constants.ASPECT_CONTACT_LAST_NAME) || contactInformation.equals(Constants.ASPECT_CONTACT_NUMBER) || contactInformation.equals(Constants.ASPECT_CONTACT_EMAIL)) {
-               logger.printLog("\n\nERROR 3 :- Violating security policy. Contact Information has been detected in HTTP Stream.", dumpBytes);
+           if (contactInformation.equals(Constants.ASPECT_CONTACT_FIRST_NAME)) {
+               logger.printLog("\n\nERROR 3.0 :- Violating security policy. Contact Name has been detected in HTTP Stream.", dumpBytes);
+           } else if (contactInformation.equals(Constants.ASPECT_CONTACT_LAST_NAME)) {
+                logger.printLog("\n\nERROR 3.0 :- Violating security policy. Contact Name has been detected in HTTP Stream.", dumpBytes);
+           } else if (contactInformation.equals(Constants.ASPECT_CONTACT_NUMBER)) {
+                logger.printLog("\n\nERROR 3.1 :- Violating security policy. Contact phone number has been detected in HTTP Stream.", dumpBytes);
+           } else if (contactInformation.equals(Constants.ASPECT_CONTACT_EMAIL)) {
+                logger.printLog("\n\nERROR 3.2 :- Violating security policy. Contact email has been detected in HTTP Stream.", dumpBytes);
            }
         }
     }

@@ -20,13 +20,13 @@ public class Constants {
 
     /* mock-up Contact Details */
     public final static String ASPECT_CONTACT_NAME = "Kryptonite_Superhuman";
-    public final static String ASPECT_CONTACT_FIRST_NAME = "Kryptonite";
-    public final static String ASPECT_CONTACT_LAST_NAME = "Superhuman";
-    public final static String ASPECT_CONTACT_NUMBER = "7867867860";
-    public final static String ASPECT_CONTACT_EMAIL = "kry@sup.co";
+    public final static String ASPECT_CONTACT_FIRST_NAME = "Neanderthals";
+    public final static String ASPECT_CONTACT_LAST_NAME = "Supersapiens";
+    public final static String ASPECT_CONTACT_NUMBER = "742-742-4242";
+    public final static String ASPECT_CONTACT_EMAIL = "neo@super.co";
 
-    /* EPSILON = 0.001 */
-    public final static double DOUBLE_EPSILON = 0.001;
+    /* EPSILON = 0.00001 */
+    public final static double DOUBLE_EPSILON = 0.00001;
 
     /* Maximum size of Sliding Buffer */
     public final static int SLIDING_WINDOW_SIZE = 15;
