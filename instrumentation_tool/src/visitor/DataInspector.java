@@ -10,24 +10,24 @@ import util.Logging;
  *
  * @author Anshul Vyas
  */
-public class SecurityChecker implements Visitor {
+public class DataInspector implements Visitor {
 
-    private static SecurityChecker securityChecker = null;
+    private static DataInspector dataInspector = null;
 
     /* Instance of the Logging class */
     Logging logger = Logging.getInstance();
 
-    private SecurityChecker() { }
+    private DataInspector() { }
 
     /**
-     * @return new instance of the SecurityChecker
+     * @return new instance of the DataInspector
      */
-    public static SecurityChecker getInstance() {
-        if (securityChecker == null) {
-            securityChecker = new SecurityChecker();
+    public static DataInspector getInstance() {
+        if (dataInspector == null) {
+            dataInspector = new DataInspector();
         }
 
-        return securityChecker;
+        return dataInspector;
     }
 
     /**

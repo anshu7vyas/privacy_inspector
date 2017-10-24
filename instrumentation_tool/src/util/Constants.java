@@ -7,7 +7,7 @@ package util;
  */
 public class Constants {
     public final static int DOUBLE_BYTE_SIZE = 8;
-    public final static int IMEI_BYTE_SIZE = 15;
+    public final static int CONTACT_INFO_BYTE_SIZE = 10;
 
     /* mock-up geo location coordinates */
     public final static double ASPECT_LATITUDE = 34.93281;      // Line of control - IND PAK border //27.98785;      //Mt. Everest
@@ -20,13 +20,15 @@ public class Constants {
 
     /* mock-up Contact Details */
     public final static String ASPECT_CONTACT_NAME = "Kryptonite_Superhuman";
-    public final static String ASPECT_CONTACT_NUMBER = "786-786-7860";
-    public final static String ASPECT_CONTACT_EMAIL = "kryptonite@krypton.in";
+    public final static String ASPECT_CONTACT_FIRST_NAME = "Kryptonite";
+    public final static String ASPECT_CONTACT_LAST_NAME = "Superhuman";
+    public final static String ASPECT_CONTACT_NUMBER = "7867867860";
+    public final static String ASPECT_CONTACT_EMAIL = "kry@sup.co";
 
     /* EPSILON = 0.001 */
     public final static double DOUBLE_EPSILON = 0.001;
 
     /* Maximum size of Sliding Buffer */
-    public final static int SLIDING_WINDOW_SIZE = 21;
+    public final static int SLIDING_WINDOW_SIZE = 15;
 
 }
