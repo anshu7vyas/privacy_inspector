@@ -8,7 +8,9 @@ import visitor.LocationObserver;
 import visitor.SecurityChecker;
 
 /**
- * Created by av7 on 7/29/17.
+ * A singleton class that manages all the Sliding Buffers required for analysis.
+ *
+ * @author Anshul Vyas
  */
 public class BufferManager implements Observer {
 
@@ -16,6 +18,9 @@ public class BufferManager implements Observer {
 
     private BufferManager() { }
 
+    /**
+     * @return a new instance of the BufferManager
+     */
     public static BufferManager getInstance() {
         if (bufferManager == null) {
             bufferManager = new BufferManager();
@@ -24,6 +29,13 @@ public class BufferManager implements Observer {
         return bufferManager;
     }
 
+    /**
+     * Overrides the update() method of Observer Interface to get new Sliding buffers for each of 3 analysis,
+     * namely, IMEI, Geolocation, Contacts
+     *
+     * @param object - different objects for different output streams
+     */
+    @Override
     public void update(Object object) {
         IMEIObserver imeiObserver = new IMEIObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.IMEI_BYTE_SIZE));
         imeiObserver.accept(SecurityChecker.getInstance());

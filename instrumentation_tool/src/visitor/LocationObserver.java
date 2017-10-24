@@ -1,7 +1,9 @@
 package visitor;
 
 /**
- * Created by av7 on 7/29/17.
+ * Visitable class for Geolocation - defines an accept method that accepts visitor objects
+ *
+ * @author Anshul Vyas
  */
 public class LocationObserver implements Visitable {
 
@@ -11,11 +13,18 @@ public class LocationObserver implements Visitable {
         this.locationBuffer = locationBuffer;
     }
 
+    /**
+     * Accepts the visitor - SecurityChecker
+     * @param visitor
+     */
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * @return locationBuffer
+     */
     public byte[] getLocationBuffer() {
         return locationBuffer;
     }
