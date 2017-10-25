@@ -42,7 +42,7 @@ Let's go over each package and look over the class diagram
 
 ### Dependency diagram
 
-![overall](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD4_Overall_Flow.jpg?raw=true "overall")
+![overall](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD4_Overall_flow.jpg?raw=true "overall")
 
 ### Flow Diagram (Bottom-up Approach)
 
