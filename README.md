@@ -21,3 +21,7 @@ The Privacy Protection tool enables the users to test-monitor-analyze the behavi
 ## Understanding the source code:
 
 The source code can be found in ```instrumentation_tool/src```
+
+First, let's glance over at the project structure
+
+![Project Structure](https://github.com/av-7/privacy_protection/blob/master/Screens/setup_screens/SS1_Project_Structure.jpg)
