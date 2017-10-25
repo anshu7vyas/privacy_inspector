@@ -2,7 +2,7 @@ package visitor;
 
 /**
  * Interface for Visitable - objects that can be visited to run the analysis by the concrete implementation
- * of our SecurityChecker
+ * of our DataInspector
  *
  * @author Anshul Vyas
  */

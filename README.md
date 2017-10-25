@@ -44,7 +44,7 @@ Let's go over each package and look over the class diagram
 
 ![overall](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD4_Overall_Flow.jpg?raw=true "overall")
 
-### Bottom-up Approach
+### Flow Diagram (Bottom-up Approach)
 
 ![Bottom-up](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/Flow.jpg?raw=true "overall")
 
