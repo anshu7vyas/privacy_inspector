@@ -11,7 +11,7 @@ The Privacy Protection tool enables the users to test-monitor-analyze the behavi
 2. [Procedure for instrumenting the source code and building custom Android emulator][emulator]
 
 #### Mock-up data wrangling
-1. [Inserting mock-up geocoordinates in the emulator using telnet][telnet]
+1. [Inserting mock-up geo coordinates in the emulator using telnet][telnet]
 
 [home]: https://github.com/av-7/privacy_protection/wiki
 [2.3.7]: https://github.com/av-7/privacy_protection/wiki/Getting-started-with-Android-2.3.7-Gingerbread-Build
@@ -24,18 +24,30 @@ The source code can be found in ```instrumentation_tool/src```
 
 First, let's glance over at the project structure
 
-![Project Structure](https://github.com/av-7/privacy_protection/blob/master/Screens/setup_screens/SS1_Project_Structure.jpg)
+![Project Structure](https://github.com/av-7/privacy_protection/blob/master/Screens/setup_screens/SS1_Project_Structure.jpg?raw=true "structure")
 
 Let's go over each package and look over the class diagram
 
-### ```package observer```
-<br>
-![](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD2_Package_observer.jpg)
+### ```package observer;```
 
-### ```package visitor```
-<br>
-![](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD3_Package_visitor.jpg)
+![observer](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD2_Package_observer.jpg?raw=true "observer")
 
-### ```package util```
-<br>
-![](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD1_Package_util.jpg)
+### ```package visitor;```
+
+![visitor](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD3_Package_visitor.jpg?raw=true "visitor")
+
+### ```package util;```
+
+![util](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD1_Package_util.jpg?raw=true "util")
+
+### Dependency diagram
+
+![overall](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD4_Overall_Flow.jpg?raw=true "overall")
+
+### Bottom-up Approach
+
+![Bottom-up](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/Flow.jpg?raw=true "overall")
+
+## Sample Application:
+
+For testing purposes, an APK file has been provided under the APKs/ folder for you to understand the working of the tool. The Secret-Spiller app deliberately requests the permission for IMEI, Geolocation, Contacts and then uploads it to an echo server.
