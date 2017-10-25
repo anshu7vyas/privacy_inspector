@@ -1,6 +1,6 @@
 package visitor;
 
-import util.ByteConversion;
+import util.EpsilonCheck;
 import util.Constants;
 import util.EnsureEncoding;
 import util.Logging;
@@ -58,15 +58,15 @@ public class DataInspector implements Visitor {
 
         if(dumpBytes != null) {
             String contactInformation = EnsureEncoding.decode(dumpBytes);           // detect encoding
-           if (contactInformation.equals(Constants.ASPECT_CONTACT_FIRST_NAME)) {
-               logger.printLog("\n\nERROR 3.0 :- Violating security policy. Contact Name has been detected in HTTP Stream.", dumpBytes);
-           } else if (contactInformation.equals(Constants.ASPECT_CONTACT_LAST_NAME)) {
+            if (contactInformation.equals(Constants.ASPECT_CONTACT_FIRST_NAME)) {
                 logger.printLog("\n\nERROR 3.0 :- Violating security policy. Contact Name has been detected in HTTP Stream.", dumpBytes);
-           } else if (contactInformation.equals(Constants.ASPECT_CONTACT_NUMBER)) {
+            } else if (contactInformation.equals(Constants.ASPECT_CONTACT_LAST_NAME)) {
+                logger.printLog("\n\nERROR 3.0 :- Violating security policy. Contact Name has been detected in HTTP Stream.", dumpBytes);
+            } else if (contactInformation.equals(Constants.ASPECT_CONTACT_NUMBER)) {
                 logger.printLog("\n\nERROR 3.1 :- Violating security policy. Contact phone number has been detected in HTTP Stream.", dumpBytes);
-           } else if (contactInformation.equals(Constants.ASPECT_CONTACT_EMAIL)) {
+            } else if (contactInformation.equals(Constants.ASPECT_CONTACT_EMAIL)) {
                 logger.printLog("\n\nERROR 3.2 :- Violating security policy. Contact email has been detected in HTTP Stream.", dumpBytes);
-           }
+            }
         }
     }
 
@@ -83,17 +83,15 @@ public class DataInspector implements Visitor {
             String coordinatesDecoded = EnsureEncoding.decode(dumpBytes);          // detect encoding
             try {
                 Double coordinates = Double.valueOf(coordinatesDecoded);           // check if the characters can be converted to Double or not
-                if (ByteConversion.almostEqualDouble(coordinates, Constants.ASPECT_LATITUDE)) {
+                if (EpsilonCheck.almostEqualDouble(coordinates, Constants.ASPECT_LATITUDE)) {
                     logger.printLog("\n\nERROR 1.0 :- Violating security policy. Latitude coordinates has been detected in the HTTP Stream.", dumpBytes);
                 }
-                if (ByteConversion.almostEqualDouble(coordinates, Constants.ASPECT_LONGITUDE)) {
+                if (EpsilonCheck.almostEqualDouble(coordinates, Constants.ASPECT_LONGITUDE)) {
                     logger.printLog("\n\nERROR 1.1 :- Violating security policy. Longitude coordinates has been detected in the HTTP Stream.", dumpBytes);
                 }
             } catch (NumberFormatException e) {
-        
+
             }
         }
     }
 }
-
-
