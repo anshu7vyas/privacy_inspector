@@ -10,7 +10,7 @@ The Privacy Protection tool enables the users to test-monitor-analyze the behavi
 1. [Getting started with Android 2.3.7 Gingerbread Build][2.3.7]
 2. [Procedure for instrumenting the source code and building custom Android emulator][emulator]
 
-## Mock-up data wrangling
+#### Mock-up data wrangling
 1. [Inserting mock-up geocoordinates in the emulator using telnet][telnet]
 
 [home]: https://github.com/av-7/privacy_protection/wiki
@@ -18,10 +18,24 @@ The Privacy Protection tool enables the users to test-monitor-analyze the behavi
 [emulator]: https://github.com/av-7/privacy_protection/wiki/Procedure-for-instrumenting-the-source-code-and-building-custom-Android-emulator
 [telnet]: https://github.com/av-7/privacy_protection/wiki/Inserting-mock-up-geo-coordinates-in-the-emulator-using-telnet
 
-## Understanding the source code:
+## Source code walkthrough:
 
 The source code can be found in ```instrumentation_tool/src```
 
 First, let's glance over at the project structure
 
 ![Project Structure](https://github.com/av-7/privacy_protection/blob/master/Screens/setup_screens/SS1_Project_Structure.jpg)
+
+Let's go over each package and look over the class diagram
+
+### ```package observer```
+<br>
+![](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD2_Package_observer.jpg)
+
+### ```package visitor```
+<br>
+![](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD3_Package_visitor.jpg)
+
+### ```package util```
+<br>
+![](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD1_Package_util.jpg)
