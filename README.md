@@ -30,12 +30,12 @@ Let's go over each package and look over the class diagram
 
 ### ```package observer```
 <br>
-![](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD2_Package_observer.jpg)
+![observer](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD2_Package_observer.jpg)
 
 ### ```package visitor```
 <br>
-![](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD3_Package_visitor.jpg)
+![visitor](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD3_Package_visitor.jpg)
 
 ### ```package util```
 <br>
-![](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD1_Package_util.jpg)
+![util](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD1_Package_util.jpg)
