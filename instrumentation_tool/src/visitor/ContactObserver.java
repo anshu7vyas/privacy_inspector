@@ -15,7 +15,7 @@ public class ContactObserver implements Visitable {
     }
 
     /**
-     * Accepts the visitor - SecurityChecker
+     * Accepts the visitor - DataInspector
      * @param visitor
      */
     @Override

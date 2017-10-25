@@ -3,9 +3,9 @@ package observer;
 import util.Constants;
 import util.SlidingBuffer;
 import visitor.ContactObserver;
+import visitor.DataInspector;
 import visitor.IMEIObserver;
 import visitor.LocationObserver;
-import visitor.SecurityChecker;
 
 /**
  * A singleton class that manages all the Sliding Buffers required for analysis.
@@ -37,14 +37,14 @@ public class BufferManager implements Observer {
      */
     @Override
     public void update(Object object) {
-        IMEIObserver imeiObserver = new IMEIObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.IMEI_BYTE_SIZE));
-        imeiObserver.accept(SecurityChecker.getInstance());
+        IMEIObserver imeiObserver = new IMEIObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.SLIDING_WINDOW_SIZE));
+        imeiObserver.accept(DataInspector.getInstance());
 
         LocationObserver locationObserver = new LocationObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.DOUBLE_BYTE_SIZE));
-        locationObserver.accept(SecurityChecker.getInstance());
+        locationObserver.accept(DataInspector.getInstance());
 
-        ContactObserver contactObserver = new ContactObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.SLIDING_WINDOW_SIZE));
-        contactObserver.accept(SecurityChecker.getInstance());
+        ContactObserver contactObserver = new ContactObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.CONTACT_INFO_BYTE_SIZE));
+        contactObserver.accept(DataInspector.getInstance());
 
     }
 }
