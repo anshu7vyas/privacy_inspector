@@ -29,13 +29,13 @@ First, let's glance over at the project structure
 Let's go over each package and look over the class diagram
 
 ### ```package observer```
-<br>
+
 ![observer](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD2_Package_observer.jpg)
 
 ### ```package visitor```
-<br>
+
 ![visitor](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD3_Package_visitor.jpg)
 
 ### ```package util```
-<br>
+
 ![util](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/CD1_Package_util.jpg)
