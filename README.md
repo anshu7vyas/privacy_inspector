@@ -1,6 +1,6 @@
 # privacy_protection
 
-The Privacy Protection tool enables the users to test-monitor-analyze the behavior of all installed apps on Android and recognizes possible privacy loopholes. Privacy Protection tool uses Aspect Oriented Programming to weave custom aspects into Android platform. The primary objective is to enhance Android platform, by implementing a new tool to monitor and log whenever apps make use of privacy-sensitive API. This way our injected aspects blend well with the platform and work together to alert users about privacy leaks.
+The Privacy Protection tool enables the users to test-monitor-analyze the behavior of all installed apps on Android and recognizes possible privacy loopholes. Privacy Protection tool uses Aspect Oriented Programming to weave custom aspects into Android platform. The primary objective is to enhance Android platform, by implementing the aspect way to monitor and log whenever apps make use of privacy-sensitive API. This means our injected aspects blend well with the platform and work together to alert users about privacy leaks.
 
 #### To use this tool, you'll need to instrument the AOSP build using [Instrumentation_tool](https://github.com/poojakanchan/instrumentation_tool)
 
@@ -47,6 +47,8 @@ Let's go over each package and look over the class diagram
 ### Flow Diagram (Bottom-up Approach)
 
 ![Bottom-up](https://github.com/av-7/privacy_protection/blob/master/Screens/class_diagrams/Flow.jpg?raw=true "overall")
+
+The project makes use of software design patterns like the Observer pattern, Visitor Pattern and the Singleton pattern. Whenever the analysis is run, the stream of bytes are pipelined through the Sliding Buffers looking for the mock-up data instrumented beforehand. The observers are notified, whenever the stream of byte changes, and the DataInspector class runs the analysis - first by detecting the Encoding of the stream, then returning the stream in proper format, if the mockup data is detected, it is logged in the ```adb logs``` while the app is run for testing.
 
 ## Sample Application:
 
