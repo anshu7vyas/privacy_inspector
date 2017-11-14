@@ -7,11 +7,11 @@ package util;
  */
 public class Constants {
     public final static int DOUBLE_BYTE_SIZE = 8;
-    public final static int CONTACT_INFO_BYTE_SIZE = 10;
+    public final static int CONTACT_INFO_BYTE_SIZE = 12;
 
     /* mock-up geo location coordinates */
-    public final static double ASPECT_LATITUDE = 34.98785;      //93281;      // Line of control - IND PAK border //27.98785;      //Mt. Everest
-    public final static double ASPECT_LONGITUDE = 76.98785;           //76571;     // Line of control - IND PAK border //86.92503;      //Mt. Everest
+    public final static double ASPECT_LATITUDE = 34.93281;      // Line of control - IND PAK border //27.98785;      //Mt. Everest
+    public final static double ASPECT_LONGITUDE = 76.76571;     //98785;     // Line of control - IND PAK border //86.92503;      //Mt. Everest
 //    public final static String ASPECT_LATITUDE_STRING = "34.93281";
 //    public final static String ASPECT_LONGITUDE_STRING = "76.76571";
 

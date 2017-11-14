@@ -22,4 +22,11 @@ public class EpsilonCheck {
         if (a == b) return true;
         return Math.abs(a - b) <= Constants.DOUBLE_EPSILON;
     }
+
+    /**
+     * byte[] -> double
+     */
+    public static double bytes2Double(byte[] value) {
+        return ByteBuffer.wrap(value).getDouble();
+    }
 }
