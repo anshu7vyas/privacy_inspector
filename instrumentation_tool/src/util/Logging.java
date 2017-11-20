@@ -40,9 +40,8 @@ public class Logging {
     /**
      * Prints the log message with the StackTrace
      * @param error message
-     * @param arg object
      */
-    public void printLog(String error, Object arg) {
+    public void printLog(String error) {
         final Logger logger = Logger.getLogger("test");
         formatter(logger);
 

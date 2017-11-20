@@ -1,5 +1,7 @@
 package util;
 
+import observer.BufferManager;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,10 +18,10 @@ public class SlidingBuffer {
     private byte[] circularBuffer;
     private int index;
     private boolean filled;
-    //private static SlidingBuffer slidingBuffer = new SlidingBuffer(Constants.SLIDING_WINDOW_SIZE);
+    private static SlidingBuffer slidingBuffer; //= new SlidingBuffer(Constants.SLIDING_WINDOW_SIZE);
 
     /* A hashmap to keep record of different sliding buffers for different output streams */
-    private static Map<Object, SlidingBuffer> internalMap = new HashMap<Object, SlidingBuffer>();
+    //private static Map<Object, SlidingBuffer> internalMap = new HashMap<Object, SlidingBuffer>();
 
     /**
      * Constructor defining the window size required for the analysis
@@ -35,15 +37,20 @@ public class SlidingBuffer {
     /**
      * Creates an instance for the object key in the internalMap
      *
-     * @param object
      * @return new instance of the Sliding Buffer according to the Object in the internalMap
      */
-    public static SlidingBuffer getInstance(Object object) {
-        if (!internalMap.containsKey(object)){
-            internalMap.put(object, new SlidingBuffer(Constants.SLIDING_WINDOW_SIZE));
+    public static SlidingBuffer getInstance() {
+//        if (!internalMap.containsKey(object)){
+//            internalMap.put(object, new SlidingBuffer(Constants.SLIDING_WINDOW_SIZE));
+//
+//        }
+//        return internalMap.get(object);
 
+        if (slidingBuffer == null) {
+            slidingBuffer = new SlidingBuffer(Constants.SLIDING_WINDOW_SIZE);
         }
-        return internalMap.get(object);
+
+        return slidingBuffer;
     }
 
     /**
@@ -89,5 +96,9 @@ public class SlidingBuffer {
             i = (i-1 < 0) ? windowSize-1 : i-1;
         }
         return temp;
+    }
+
+    public void fillBuffer(byte[] buf) {
+
     }
 }

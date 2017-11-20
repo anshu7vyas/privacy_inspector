@@ -1,5 +1,6 @@
 package visitor;
 
+import util.Constants;
 
 /**
  * Visitable class for Contacts - defines an accept method that accepts visitor objects
@@ -22,6 +23,7 @@ public class ContactObserver implements Visitable {
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
+
 
     /**
      * @return contactBuffer

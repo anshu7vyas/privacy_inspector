@@ -1,5 +1,8 @@
 package util;
 
+
+import visitor.DataInspector;
+
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 
@@ -55,7 +58,10 @@ public class EnsureEncoding {
 
            ByteBuffer byteBuffer = ByteBuffer.wrap(chars);
            CharBuffer decoded = decoder.decode(byteBuffer);
+
+           System.out.println("!@#$---- " + decoded.toString().replaceAll(Character.toString('\0'), ""));
            return decoded.toString().replaceAll(Character.toString('\0'), "");
            // return decoded.toString();
     }
+
 }

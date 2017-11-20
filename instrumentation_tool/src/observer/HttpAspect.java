@@ -1,5 +1,6 @@
 package observer;
 
+import util.Constants;
 import util.SlidingBuffer;
 
 import java.util.ArrayList;
@@ -11,6 +12,10 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.ProceedingJoinPoint;
+import visitor.ContactObserver;
+import visitor.IMEIObserver;
+import visitor.LocationObserver;
+import visitor.Visitable;
 
 /**
  * Instrumentation of write() API in the Http Output Stream, a.k.a "the sink" where we inspect for the mock-up data
@@ -23,11 +28,10 @@ public class HttpAspect implements Observable {
     /* Array for storing the bytes coming via Output Stream */
     public byte[] dumpBytes;
 
-    /* Arraylist of all observers */
-    List<Observer> observers = new ArrayList<Observer>();
+    List<Observer> observers = new ArrayList<>();
 
-    public HttpAspect() {
-        registerObserver(BufferManager.getInstance());
+    public HttpAspect(Object obj) {
+        registerObserver(BufferManager.getInstance(obj));
     }
 
     @Override
@@ -43,9 +47,8 @@ public class HttpAspect implements Observable {
 
     @Override
     public void notifyObservers(Object object){
-        for(Observer observer: observers) {
-            observer.update(object);
-        }
+
+        BufferManager.getInstance(object).update();
     }
 
     /**
@@ -63,7 +66,8 @@ public class HttpAspect implements Observable {
         dumpBytes = (byte[]) arg[0];
 
         for (int i = 0; i < dumpBytes.length; i++) {
-            SlidingBuffer.getInstance(o).add(dumpBytes[i]);
+            BufferManager.getInstance(o).slidingBuffer.add(dumpBytes[i]);
+            //SlidingBuffer.getInstance(o).add(dumpBytes[i]);
             notifyObservers(o);
         }
 
