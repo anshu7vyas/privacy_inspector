@@ -1,6 +1,9 @@
 package visitor;
 
 
+import util.Constants;
+import util.SlidingBuffer;
+
 /**
  * Visitable class for Contacts - defines an accept method that accepts visitor objects
  *
@@ -10,8 +13,9 @@ public class ContactObserver implements Visitable {
 
     private byte[] contactBuffer;
 
-    public ContactObserver(byte[] contactBuffer) {
-        this.contactBuffer = contactBuffer;
+    public ContactObserver(Object object) {
+        contactBuffer = new byte[Constants.CONTACT_INFO_BYTE_SIZE];
+        SlidingBuffer.getInstance(object).fillBuffer(contactBuffer);
     }
 
     /**

@@ -1,5 +1,8 @@
 package visitor;
 
+import util.Constants;
+import util.SlidingBuffer;
+
 /**
  * Visitable class for Geolocation - defines an accept method that accepts visitor objects
  *
@@ -9,8 +12,9 @@ public class LocationObserver implements Visitable {
 
     private byte[] locationBuffer;
 
-    public LocationObserver(byte[] locationBuffer) {
-        this.locationBuffer = locationBuffer;
+    public LocationObserver(Object object) {
+        locationBuffer = new byte[Constants.DOUBLE_BYTE_SIZE];
+        SlidingBuffer.getInstance(object).fillBuffer(locationBuffer);
     }
 
     /**

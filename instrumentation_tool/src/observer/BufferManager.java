@@ -37,13 +37,13 @@ public class BufferManager implements Observer {
      */
     @Override
     public void update(Object object) {
-        IMEIObserver imeiObserver = new IMEIObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.SLIDING_WINDOW_SIZE));
+        IMEIObserver imeiObserver = new IMEIObserver(object);
         imeiObserver.accept(DataInspector.getInstance());
 
-        LocationObserver locationObserver = new LocationObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.DOUBLE_BYTE_SIZE));
+        LocationObserver locationObserver = new LocationObserver(object);
         locationObserver.accept(DataInspector.getInstance());
 
-        ContactObserver contactObserver = new ContactObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.CONTACT_INFO_BYTE_SIZE));
+        ContactObserver contactObserver = new ContactObserver(object);
         contactObserver.accept(DataInspector.getInstance());
 
     }
