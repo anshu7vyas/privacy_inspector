@@ -2,7 +2,7 @@ package observer;
 
 import util.SlidingBuffer;
 
-import java.nio.charset.StandardCharsets;
+//import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,14 +43,14 @@ public class HttpAspect implements Observable {
 
     @Override
     public void notifyObservers(Object object){
-        if(observers.isEmpty()) {
-            System.out.print("Nothing there in list");
-        } else {
-            System.out.println(observers.get(0).getClass());
-            for(Observer observer: observers) {
-                observer.update(object);
-            }
+        // if(observers.isEmpty()) {
+        //     System.out.print("Nothing there in list");
+        // } else {
+            //System.out.println(observers.get(0).getClass());
+        for(Observer observer: observers) {
+            observer.update(object);
         }
+        // }
 
     }
 
@@ -67,6 +67,8 @@ public class HttpAspect implements Observable {
         Object arg[] = joinPoint.getArgs();
 
         dumpBytes = (byte[]) arg[0];
+
+        registerObserver(BufferManager.getInstance());
 
         for (int i = 0; i < dumpBytes.length; i++) {
             SlidingBuffer.getInstance(o).add(dumpBytes[i]);
