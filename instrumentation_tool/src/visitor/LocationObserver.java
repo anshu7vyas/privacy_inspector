@@ -12,10 +12,24 @@ public class LocationObserver implements Visitable {
 
     private byte[] locationBuffer;
 
-    public LocationObserver(Object object) {
+    private static LocationObserver locationObserver = null;
+
+    public static LocationObserver getInstance(Object object) {
+        if (locationObserver == null) {
+            locationObserver = new LocationObserver(object);
+        }
+        return locationObserver;
+    }
+
+    private LocationObserver(Object object) {
         locationBuffer = new byte[Constants.DOUBLE_BYTE_SIZE];
+    }
+
+
+    public void updateBuffer(Object object) {
         SlidingBuffer.getInstance(object).fillBuffer(locationBuffer);
     }
+
 
     /**
      * Accepts the visitor - DataInspector

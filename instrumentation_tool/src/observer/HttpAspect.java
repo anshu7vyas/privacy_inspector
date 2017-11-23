@@ -2,6 +2,7 @@ package observer;
 
 import util.SlidingBuffer;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +27,8 @@ public class HttpAspect implements Observable {
     /* Arraylist of all observers */
     List<Observer> observers = new ArrayList<Observer>();
 
-    public HttpAspect() {
-        registerObserver(BufferManager.getInstance());
-    }
+//    public HttpAspect() {
+//    }
 
     @Override
     public void registerObserver(Observer newObserver) {
@@ -43,16 +43,22 @@ public class HttpAspect implements Observable {
 
     @Override
     public void notifyObservers(Object object){
-        for(Observer observer: observers) {
-            observer.update(object);
+        if(observers.isEmpty()) {
+            System.out.print("Nothing there in list");
+        } else {
+            System.out.println(observers.get(0).getClass());
+            for(Observer observer: observers) {
+                observer.update(object);
+            }
         }
+
     }
 
     /**
      * AspectJ advice around the API org.apache.harmony.luni.internal.net.www.protocol.http.RetryableOutputStream.write()
      * The method where we run different analysis on the bytes we are getting from the Output stream
      *
-     * @param joinPoint
+     * @param
      * @throws Throwable
      */
     @Around("execution(synchronized void org.apache.harmony.luni.internal.net.www.protocol.http.RetryableOutputStream.write(..))")
@@ -70,6 +76,27 @@ public class HttpAspect implements Observable {
         Object obj = joinPoint.proceed();
         return obj;
     }
+
+//    public void aroundWrite(byte[] buffer, Object o) {
+//
+//
+//        registerObserver(BufferManager.getInstance());
+//
+//        for (int i = 0; i < buffer.length; i++) {
+//            SlidingBuffer.getInstance(o).add(buffer[i]);
+//            notifyObservers(o);
+//        }
+//    }
+//
+//    public static void main(String[] args) {
+//        HttpAspect httpAspect = new HttpAspect();
+//
+//        Object obj = 0x9999;
+//        byte[] buffer = "424242424242424 34.93281 76.76571 Neanderthals Supersapiens 742-742-4242".getBytes(StandardCharsets.UTF_8);
+//
+//        //httpAspect.registerObserver(BufferManager.getInstance());
+//        httpAspect.aroundWrite(buffer, obj);
+//    }
 
 }
 

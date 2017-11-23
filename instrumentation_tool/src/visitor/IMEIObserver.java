@@ -12,10 +12,25 @@ public class IMEIObserver implements Visitable {
 
     private byte[] imeiBuffer;
 
-    public IMEIObserver(Object object) {
+    private static IMEIObserver imeiObserver = null;
+
+    public static IMEIObserver getInstance (Object object) {
+        if (imeiObserver == null) {
+            imeiObserver = new IMEIObserver(object);
+        }
+        return imeiObserver;
+    }
+
+    private IMEIObserver(Object object) {
         imeiBuffer = new byte[Constants.SLIDING_WINDOW_SIZE];
+
+    }
+
+
+    public void updateBuffer(Object object) {
         SlidingBuffer.getInstance(object).fillBuffer(imeiBuffer);
     }
+
 
     /**
      * Accepts the visitor - DataInspector

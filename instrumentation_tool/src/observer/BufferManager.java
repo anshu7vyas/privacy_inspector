@@ -14,9 +14,17 @@ import visitor.LocationObserver;
  */
 public class BufferManager implements Observer {
 
+    //protected HttpAspect httpAspect;
+
+    IMEIObserver imeiObserver;
+    LocationObserver locationObserver;
+    ContactObserver contactObserver;
+
     private static BufferManager bufferManager = null;
 
-    private BufferManager() { }
+    private BufferManager() {
+
+    }
 
     /**
      * @return a new instance of the BufferManager
@@ -37,13 +45,16 @@ public class BufferManager implements Observer {
      */
     @Override
     public void update(Object object) {
-        IMEIObserver imeiObserver = new IMEIObserver(object);
+        imeiObserver = imeiObserver.getInstance(object);
+        imeiObserver.updateBuffer(object);
         imeiObserver.accept(DataInspector.getInstance());
 
-        LocationObserver locationObserver = new LocationObserver(object);
+        locationObserver = locationObserver.getInstance(object);
+        locationObserver.updateBuffer(object);
         locationObserver.accept(DataInspector.getInstance());
 
-        ContactObserver contactObserver = new ContactObserver(object);
+        contactObserver = contactObserver.getInstance(object);
+        contactObserver.updateBuffer(object);
         contactObserver.accept(DataInspector.getInstance());
 
     }
