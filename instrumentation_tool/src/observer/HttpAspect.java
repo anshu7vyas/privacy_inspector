@@ -3,6 +3,7 @@ package observer;
 import util.Constants;
 import util.SlidingBuffer;
 
+//import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,7 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.ProceedingJoinPoint;
-import visitor.ContactObserver;
-import visitor.IMEIObserver;
-import visitor.LocationObserver;
-import visitor.Visitable;
+
 
 /**
  * Instrumentation of write() API in the Http Output Stream, a.k.a "the sink" where we inspect for the mock-up data
@@ -30,9 +28,9 @@ public class HttpAspect implements Observable {
 
     List<Observer> observers = new ArrayList<>();
 
-    public HttpAspect(Object obj) {
-        registerObserver(BufferManager.getInstance(obj));
-    }
+//    public HttpAspect() {
+//        //registerObserver(BufferManager.getInstance());
+//    }
 
     @Override
     public void registerObserver(Observer newObserver) {
@@ -47,15 +45,17 @@ public class HttpAspect implements Observable {
 
     @Override
     public void notifyObservers(Object object){
-
-        BufferManager.getInstance(object).update();
+        System.out.println(observers.get(0).getClass());
+        for(Observer observer: observers) {
+            observer.update(object);
+        }
     }
 
     /**
      * AspectJ advice around the API org.apache.harmony.luni.internal.net.www.protocol.http.RetryableOutputStream.write()
      * The method where we run different analysis on the bytes we are getting from the Output stream
      *
-     * @param joinPoint
+     * @param
      * @throws Throwable
      */
     @Around("execution(synchronized void org.apache.harmony.luni.internal.net.www.protocol.http.RetryableOutputStream.write(..))")
@@ -64,6 +64,8 @@ public class HttpAspect implements Observable {
         Object arg[] = joinPoint.getArgs();
 
         dumpBytes = (byte[]) arg[0];
+
+        registerObserver(BufferManager.getInstance(o));
 
         for (int i = 0; i < dumpBytes.length; i++) {
             BufferManager.getInstance(o).slidingBuffer.add(dumpBytes[i]);
@@ -74,6 +76,27 @@ public class HttpAspect implements Observable {
         Object obj = joinPoint.proceed();
         return obj;
     }
+
+//    public void aroundWrite(byte[] buffer, Object o) {
+//
+//
+//        registerObserver(BufferManager.getInstance(o));
+//
+//        for (int i = 0; i < buffer.length; i++) {
+//            BufferManager.getInstance(o).slidingBuffer.add(buffer[i]);
+//            notifyObservers(o);
+//        }
+//    }
+//
+//    public static void main(String[] args) {
+//        HttpAspect httpAspect = new HttpAspect();
+//
+//        Object obj = 0x9999;
+//        byte[] buffer = "424242424242424 34.93281 76.76571 Neanderthals Supersapiens 742-742-4242".getBytes(StandardCharsets.UTF_8);
+//
+//        //httpAspect.registerObserver(BufferManager.getInstance());
+//        httpAspect.aroundWrite(buffer, obj);
+//    }
 
 }
 

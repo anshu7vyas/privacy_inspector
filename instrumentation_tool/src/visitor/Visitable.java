@@ -14,4 +14,6 @@ public interface Visitable {
      * @param visitor
      */
     void accept(Visitor visitor);
+
+    void updateBuffer(Object object);
 }

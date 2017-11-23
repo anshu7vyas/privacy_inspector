@@ -59,7 +59,7 @@ public class EnsureEncoding {
            ByteBuffer byteBuffer = ByteBuffer.wrap(chars);
            CharBuffer decoded = decoder.decode(byteBuffer);
 
-           System.out.println("!@#$---- " + decoded.toString().replaceAll(Character.toString('\0'), ""));
+           //System.out.println("!@#$---- " + decoded.toString().replaceAll(Character.toString('\0'), ""));
            return decoded.toString().replaceAll(Character.toString('\0'), "");
            // return decoded.toString();
     }

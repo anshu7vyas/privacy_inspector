@@ -1,5 +1,9 @@
 package visitor;
 
+import observer.BufferManager;
+import util.Constants;
+import util.SlidingBuffer;
+
 /**
  * Visitable class for IMEI - defines an accept method that accepts visitor objects
  *
@@ -9,9 +13,25 @@ public class IMEIObserver implements Visitable {
 
     private byte[] imeiBuffer;
 
-    public IMEIObserver(byte[] imeiBuffer) {
-        this.imeiBuffer = imeiBuffer;
+    private static IMEIObserver imeiObserver = null;
+
+    public static IMEIObserver getInstance () {
+        if (imeiObserver == null) {
+            imeiObserver = new IMEIObserver();
+        }
+        return imeiObserver;
     }
+
+    private IMEIObserver() {
+        imeiBuffer = new byte[Constants.SLIDING_WINDOW_SIZE];
+
+    }
+
+    @Override
+    public void updateBuffer(Object object) {
+        BufferManager.getInstance(object).slidingBuffer.fillBuffer(imeiBuffer);
+    }
+
 
     /**
      * Accepts the visitor - DataInspector

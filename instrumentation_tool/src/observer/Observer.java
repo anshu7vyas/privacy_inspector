@@ -15,5 +15,5 @@ public interface Observer {
      * Called when a change has occurred in the state of the observable.
      * @param ob
      */
-    void update();
+    void update(Object ob);
 }

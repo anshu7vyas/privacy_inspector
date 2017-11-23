@@ -77,28 +77,36 @@ public class SlidingBuffer {
     /**
      * Gets different Sliding Buffers for different sizes defined to help in the analysis
      *
-     * @param size
+     *
      * @return sliding buffer of size defined
      */
-    public byte[] getCircularBuffer(int size) {
-        if (!filled && size > index) {      // buffer not full yet
-            return null;
-        }
-        if (size > windowSize) {            // error case
-            return null;
-        }
-        byte[] temp = new byte[size];
-        int tempIndex = size-1;
-        int i = (index-1 < 0) ? windowSize-1 : index-1;
+//    public byte[] getCircularBuffer(int size) {
+//        if (!filled && size > index) {      // buffer not full yet
+//            return null;
+//        }
+//        if (size > windowSize) {            // error case
+//            return null;
+//        }
+//        byte[] temp = new byte[size];
+//        int tempIndex = size-1;
+//        int i = (index-1 < 0) ? windowSize-1 : index-1;
+//
+//        while(tempIndex >= 0) {
+//            temp[tempIndex--] = circularBuffer[i];
+//            i = (i-1 < 0) ? windowSize-1 : i-1;
+//        }
+//        return temp;
+//    }
 
-        while(tempIndex >= 0) {
-            temp[tempIndex--] = circularBuffer[i];
-            i = (i-1 < 0) ? windowSize-1 : i-1;
+    public void fillBuffer(byte[] buffer) {
+        if (buffer.length <= windowSize) {
+            int tempIndex = buffer.length - 1;
+            int i = (index-1 < 0) ? windowSize-1 : index -1;
+
+            while(tempIndex >= 0) {
+                buffer[tempIndex--] = circularBuffer[i];
+                i = (i-1 < 0) ? windowSize-1 : i-1;
+            }
         }
-        return temp;
-    }
-
-    public void fillBuffer(byte[] buf) {
-
     }
 }

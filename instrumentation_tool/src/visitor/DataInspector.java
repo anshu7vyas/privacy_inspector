@@ -61,7 +61,7 @@ public class DataInspector implements Visitor {
             if (contactInformation.equals(Constants.ASPECT_CONTACT_FIRST_NAME)) {
                 logger.printLog("\n\nERROR 3.0 :- Violating security policy. Contact Name has been detected in HTTP Stream.");
             } else if (contactInformation.equals(Constants.ASPECT_CONTACT_LAST_NAME)) {
-                logger.printLog("\n\nERROR 3.0 :- Violating security policy. Contact Name has been detected in HTTP Stream.");
+                logger.printLog("\n\nERROR 3.0 :- Violating security policy. Contact Last Name has been detected in HTTP Stream.");
             } else if (contactInformation.equals(Constants.ASPECT_CONTACT_NUMBER)) {
                 logger.printLog("\n\nERROR 3.1 :- Violating security policy. Contact phone number has been detected in HTTP Stream.");
             } else if (contactInformation.equals(Constants.ASPECT_CONTACT_EMAIL)) {

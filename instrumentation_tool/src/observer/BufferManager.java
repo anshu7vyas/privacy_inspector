@@ -15,8 +15,19 @@ import java.util.*;
 public class BufferManager implements Observer {
 
     //private static BufferManager bufferManager; //= new BufferManager();//null;
-    SlidingBuffer slidingBuffer = SlidingBuffer.getInstance();
+    public SlidingBuffer slidingBuffer = SlidingBuffer.getInstance();
 
+
+    /**
+     * Sources to analyze
+     */
+    IMEIObserver imeiObserver;
+    LocationObserver locationObserver;
+    ContactObserver contactObserver;
+
+    /**
+     * Arraylist of Visitables
+     */
     private List<Visitable> visitables = new ArrayList<Visitable>();
 
     /* A hashmap to keep record of different buffer managers for different output streams */
@@ -41,13 +52,13 @@ public class BufferManager implements Observer {
     }
 
     public void instantiateVisitables() {
-        IMEIObserver imeiObserver = new IMEIObserver(SlidingBuffer.getInstance().getCircularBuffer(Constants.SLIDING_WINDOW_SIZE));
+        imeiObserver = imeiObserver.getInstance();
         visitables.add(imeiObserver);
 
-        LocationObserver locationObserver = new LocationObserver(SlidingBuffer.getInstance().getCircularBuffer(Constants.DOUBLE_BYTE_SIZE));
+        locationObserver = locationObserver.getInstance();
         visitables.add(locationObserver);
 
-        ContactObserver contactObserver = new ContactObserver(SlidingBuffer.getInstance().getCircularBuffer(Constants.CONTACT_INFO_BYTE_SIZE));
+        contactObserver = contactObserver.getInstance();
         visitables.add(contactObserver);
     }
 
@@ -58,9 +69,10 @@ public class BufferManager implements Observer {
      *
      */
     @Override
-    public void update() {
+    public void update(Object object) {
 
         for (Visitable visitable: visitables) {
+            visitable.updateBuffer(object);
             visitable.accept(DataInspector.getInstance());
         }
 
@@ -76,3 +88,5 @@ public class BufferManager implements Observer {
     }
 
 }
+
+// Observer parent - BufferManager -> visitables are his children. He notifies them once he gets to know.
