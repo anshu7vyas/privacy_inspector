@@ -46,9 +46,6 @@ public class Logging {
         formatter(logger);
 
         System.out.print("*******************************************\n" + error + "\nHere's the StackTrace...\n");
-        // for (int i=0; i <stackTraceArray.length; i++) {
-        // 	logger.info("\tat " + i +"\n");
-        // }
         for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
             System.out.print("\tat " + element.toString() +"\n");
         }

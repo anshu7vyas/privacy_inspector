@@ -1,9 +1,5 @@
 package observer;
 
-import visitor.Visitable;
-
-import java.util.List;
-
 /**
  * Interface class for Observer - any object that wishes to be notified when the state of another object changes
  *

@@ -2,7 +2,6 @@ package visitor;
 
 import observer.BufferManager;
 import util.Constants;
-import util.SlidingBuffer;
 
 /**
  * Visitable class for Geolocation - defines an accept method that accepts visitor objects
@@ -15,6 +14,10 @@ public class LocationObserver implements Visitable {
 
     private static LocationObserver locationObserver = null;
 
+    /**
+     * Ensures single instance for LocationObserver
+     * @return instance
+     */
     public static LocationObserver getInstance() {
         if (locationObserver == null) {
             locationObserver = new LocationObserver();
@@ -22,13 +25,20 @@ public class LocationObserver implements Visitable {
         return locationObserver;
     }
 
+    /**
+     * Assigning the buffer with the number of bytes required
+     */
     private LocationObserver() {
         locationBuffer = new byte[Constants.DOUBLE_BYTE_SIZE];
     }
 
+    /**
+     * Fills the buffer byte per byte
+     * @param object
+     */
     @Override
     public void updateBuffer(Object object) {
-        BufferManager.getInstance(object).slidingBuffer.fillBuffer(locationBuffer);
+        BufferManager.getInstance(object).globalBuffer.fillBuffer(locationBuffer);
     }
 
 

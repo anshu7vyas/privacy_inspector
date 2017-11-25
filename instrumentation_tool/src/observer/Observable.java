@@ -1,7 +1,5 @@
 package observer;
 
-
-
 /**
  * Interface class for Observable - any object whose state may be of interest, and in whom another object may register an interest
  *

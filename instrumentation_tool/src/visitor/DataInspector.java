@@ -14,7 +14,9 @@ public class DataInspector implements Visitor {
 
     private static DataInspector dataInspector = null;
 
-    /* Instance of the Logging class */
+    /**
+     *  Instance of the Logging class
+     */
     Logging logger = Logging.getInstance();
 
     private DataInspector() { }
@@ -32,15 +34,14 @@ public class DataInspector implements Visitor {
 
     /**
      * Overrides the visit() method to run the analysis for IMEI number
-     *
      * @param imeiObserver
      */
     @Override
     public void visit(IMEIObserver imeiObserver) {
-        //byte[] dumpBytes = imeiObserver.getIMEIBuffer();
+        byte[] dumpBytes = imeiObserver.getIMEIBuffer();
 
-        if(imeiObserver.getIMEIBuffer() != null) {
-            String imeiDecoded = EnsureEncoding.decode(imeiObserver.getIMEIBuffer());                  // detect encoding
+        if(dumpBytes != null) {
+            String imeiDecoded = EnsureEncoding.decode(dumpBytes);                  // detect encoding
             if (imeiDecoded.equals(Constants.ASPECT_IMEI)) {
                 logger.printLog("\n\nERROR 2 :- Violating security policy. IMEI number has been detected in HTTP Stream.");
             }

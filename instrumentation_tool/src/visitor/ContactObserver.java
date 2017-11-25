@@ -2,7 +2,6 @@ package visitor;
 
 import observer.BufferManager;
 import util.Constants;
-import util.SlidingBuffer;
 
 /**
  * Visitable class for Contacts - defines an accept method that accepts visitor objects
@@ -15,6 +14,10 @@ public class ContactObserver implements Visitable {
 
     private static ContactObserver contactObserver = null;
 
+    /**
+     * Ensures single instance for ContactObserver
+     * @return instance
+     */
     public static ContactObserver getInstance() {
         if (contactObserver == null) {
             contactObserver = new ContactObserver();
@@ -22,13 +25,20 @@ public class ContactObserver implements Visitable {
         return contactObserver;
     }
 
+    /**
+     * Assigning the buffer with the number of bytes required
+     */
     private ContactObserver() {
         contactBuffer = new byte[Constants.CONTACT_INFO_BYTE_SIZE];
     }
 
+    /**
+     * Fills the buffer byte per byte
+     * @param object
+     */
     @Override
     public void updateBuffer(Object object) {
-        BufferManager.getInstance(object).slidingBuffer.fillBuffer(contactBuffer);
+        BufferManager.getInstance(object).globalBuffer.fillBuffer(contactBuffer);
     }
 
     /**

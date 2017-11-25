@@ -1,27 +1,17 @@
 package util;
 
-import observer.BufferManager;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Custom sized Sliding Window Circular Buffer Implementation.
  *
  * @author Anshul Vyas
  */
-public class SlidingBuffer {
+public class SlidingBuffer{
 
     private int windowSize;
     private byte[] circularBuffer;
     private int index;
     private boolean filled;
-    private static SlidingBuffer slidingBuffer; //= new SlidingBuffer(Constants.SLIDING_WINDOW_SIZE);
-
-    /* A hashmap to keep record of different sliding buffers for different output streams */
-    //private static Map<Object, SlidingBuffer> internalMap = new HashMap<Object, SlidingBuffer>();
+    private static SlidingBuffer slidingBuffer;
 
     /**
      * Constructor defining the window size required for the analysis
@@ -35,17 +25,11 @@ public class SlidingBuffer {
     }
 
     /**
-     * Creates an instance for the object key in the internalMap
+     * Ensures single instance for SlidingBuffer
      *
-     * @return new instance of the Sliding Buffer according to the Object in the internalMap
+     * @return instance of the Sliding Buffer
      */
     public static SlidingBuffer getInstance() {
-//        if (!internalMap.containsKey(object)){
-//            internalMap.put(object, new SlidingBuffer(Constants.SLIDING_WINDOW_SIZE));
-//
-//        }
-//        return internalMap.get(object);
-
         if (slidingBuffer == null) {
             slidingBuffer = new SlidingBuffer(Constants.SLIDING_WINDOW_SIZE);
         }
@@ -67,7 +51,6 @@ public class SlidingBuffer {
 
     /**
      * Checks if the sliding buffer is filled completely
-     *
      * @return True if the sliding buffer is filled, else false
      */
     public boolean isFilled() {
@@ -75,29 +58,8 @@ public class SlidingBuffer {
     }
 
     /**
-     * Gets different Sliding Buffers for different sizes defined to help in the analysis
-     *
-     *
-     * @return sliding buffer of size defined
+     * Fills different Sliding Buffers for different sizes defined to help in the analysis
      */
-//    public byte[] getCircularBuffer(int size) {
-//        if (!filled && size > index) {      // buffer not full yet
-//            return null;
-//        }
-//        if (size > windowSize) {            // error case
-//            return null;
-//        }
-//        byte[] temp = new byte[size];
-//        int tempIndex = size-1;
-//        int i = (index-1 < 0) ? windowSize-1 : index-1;
-//
-//        while(tempIndex >= 0) {
-//            temp[tempIndex--] = circularBuffer[i];
-//            i = (i-1 < 0) ? windowSize-1 : i-1;
-//        }
-//        return temp;
-//    }
-
     public void fillBuffer(byte[] buffer) {
         if (buffer.length <= windowSize) {
             int tempIndex = buffer.length - 1;

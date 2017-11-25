@@ -1,9 +1,5 @@
 package observer;
 
-import util.Constants;
-import util.SlidingBuffer;
-
-//import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +16,18 @@ import org.aspectj.lang.ProceedingJoinPoint;
  *
  * @author Anshul Vyas
  */
-@Aspect
+//@Aspect
 public class HttpAspect implements Observable {
 
-    /* Array for storing the bytes coming via Output Stream */
+    /**
+     *  Array for storing the bytes coming via Output Stream
+     */
     public byte[] dumpBytes;
 
+    /**
+     * Arraylist of Observers for the OutputStream, which is the Observable
+     */
     List<Observer> observers = new ArrayList<>();
-
-//    public HttpAspect() {
-//        //registerObserver(BufferManager.getInstance());
-//    }
 
     @Override
     public void registerObserver(Observer newObserver) {
@@ -55,7 +52,7 @@ public class HttpAspect implements Observable {
      * AspectJ advice around the API org.apache.harmony.luni.internal.net.www.protocol.http.RetryableOutputStream.write()
      * The method where we run different analysis on the bytes we are getting from the Output stream
      *
-     * @param
+     * @param joinPoint
      * @throws Throwable
      */
     @Around("execution(synchronized void org.apache.harmony.luni.internal.net.www.protocol.http.RetryableOutputStream.write(..))")
@@ -68,8 +65,7 @@ public class HttpAspect implements Observable {
         registerObserver(BufferManager.getInstance(o));
 
         for (int i = 0; i < dumpBytes.length; i++) {
-            BufferManager.getInstance(o).slidingBuffer.add(dumpBytes[i]);
-            //SlidingBuffer.getInstance(o).add(dumpBytes[i]);
+            BufferManager.getInstance(o).globalBuffer.add(dumpBytes[i]);
             notifyObservers(o);
         }
 
@@ -83,7 +79,7 @@ public class HttpAspect implements Observable {
 //        registerObserver(BufferManager.getInstance(o));
 //
 //        for (int i = 0; i < buffer.length; i++) {
-//            BufferManager.getInstance(o).slidingBuffer.add(buffer[i]);
+//            BufferManager.getInstance(o).globalBuffer.add(buffer[i]);
 //            notifyObservers(o);
 //        }
 //    }
