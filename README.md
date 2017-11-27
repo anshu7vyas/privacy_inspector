@@ -1,4 +1,4 @@
-# privacy_protection
+# privacy_inspector
 
 The Privacy Protection tool enables the users to test-monitor-analyze the behavior of all installed apps on Android and recognizes possible privacy loopholes. Privacy Protection tool uses Aspect Oriented Programming to weave custom aspects into Android platform. The primary objective is to enhance Android platform, by implementing the aspect way to monitor and log whenever apps make use of privacy-sensitive API. This means our injected aspects blend well with the platform and work together to alert users about privacy leaks.
 
