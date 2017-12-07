@@ -16,7 +16,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
  *
  * @author Anshul Vyas
  */
-//@Aspect
+@Aspect
 public class HttpAspect implements Observable {
 
     /**
@@ -27,7 +27,7 @@ public class HttpAspect implements Observable {
     /**
      * Arraylist of Observers for the OutputStream, which is the Observable
      */
-    List<Observer> observers = new ArrayList<>();
+    List<Observer> observers = new ArrayList<Observer>();
 
     @Override
     public void registerObserver(Observer newObserver) {
@@ -42,7 +42,6 @@ public class HttpAspect implements Observable {
 
     @Override
     public void notifyObservers(Object object){
-        System.out.println(observers.get(0).getClass());
         for(Observer observer: observers) {
             observer.update(object);
         }
@@ -61,6 +60,7 @@ public class HttpAspect implements Observable {
         Object arg[] = joinPoint.getArgs();
 
         dumpBytes = (byte[]) arg[0];
+	    //System.out.println("Inside RetryableOutputStream.write() " + dumpBytes + "\n\n" + Thread.currentThread().getStackTrace());
 
         registerObserver(BufferManager.getInstance(o));
 

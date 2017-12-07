@@ -33,6 +33,31 @@ public class DataInspector implements Visitor {
     }
 
     /**
+     * Overrides the visit() method to run the analysis for Geolocation coordinates
+     *
+     * @param locationObserver
+     */
+    @Override
+    public void visit(LocationObserver locationObserver) {
+        byte[] dumpBytes = locationObserver.getLocationBuffer();
+
+        if (dumpBytes != null) {
+            String coordinatesDecoded = EnsureEncoding.decode(dumpBytes);          // detect encoding
+            try {
+                Double coordinates = Double.valueOf(coordinatesDecoded);           // check if the characters can be converted to Double or not
+                if (EpsilonCheck.almostEqualDouble(coordinates, Constants.ASPECT_LATITUDE)) {
+                    logger.printLog("\n\nERROR 1.0 :- Privacy Violation. Latitude coordinates has been detected in the HTTP Stream.");
+                }
+                if (EpsilonCheck.almostEqualDouble(coordinates, Constants.ASPECT_LONGITUDE)) {
+                    logger.printLog("\n\nERROR 1.1 :- Privacy Violation. Longitude coordinates has been detected in the HTTP Stream.");
+                }
+            } catch (NumberFormatException e) {
+
+            }
+        }
+    }
+
+    /**
      * Overrides the visit() method to run the analysis for IMEI number
      * @param imeiObserver
      */
@@ -43,7 +68,7 @@ public class DataInspector implements Visitor {
         if(dumpBytes != null) {
             String imeiDecoded = EnsureEncoding.decode(dumpBytes);                  // detect encoding
             if (imeiDecoded.equals(Constants.ASPECT_IMEI)) {
-                logger.printLog("\n\nERROR 2 :- Violating security policy. IMEI number has been detected in HTTP Stream.");
+                logger.printLog("\n\nERROR 2 :- Privacy Violation. IMEI number has been detected in HTTP Stream.");
             }
         }
     }
@@ -60,38 +85,13 @@ public class DataInspector implements Visitor {
         if(dumpBytes != null) {
             String contactInformation = EnsureEncoding.decode(dumpBytes);           // detect encoding
             if (contactInformation.equals(Constants.ASPECT_CONTACT_FIRST_NAME)) {
-                logger.printLog("\n\nERROR 3.0 :- Violating security policy. Contact Name has been detected in HTTP Stream.");
+                logger.printLog("\n\nERROR 3.0 :- Privacy Violation. Contact Name has been detected in HTTP Stream.");
             } else if (contactInformation.equals(Constants.ASPECT_CONTACT_LAST_NAME)) {
-                logger.printLog("\n\nERROR 3.0 :- Violating security policy. Contact Last Name has been detected in HTTP Stream.");
+                logger.printLog("\n\nERROR 3.0 :- Privacy Violation. Contact Last Name has been detected in HTTP Stream.");
             } else if (contactInformation.equals(Constants.ASPECT_CONTACT_NUMBER)) {
-                logger.printLog("\n\nERROR 3.1 :- Violating security policy. Contact phone number has been detected in HTTP Stream.");
+                logger.printLog("\n\nERROR 3.1 :- Privacy Violation. Contact phone number has been detected in HTTP Stream.");
             } else if (contactInformation.equals(Constants.ASPECT_CONTACT_EMAIL)) {
-                logger.printLog("\n\nERROR 3.2 :- Violating security policy. Contact email has been detected in HTTP Stream.");
-            }
-        }
-    }
-
-    /**
-     * Overrides the visit() method to run the analysis for Geolocation coordinates
-     *
-     * @param locationObserver
-     */
-    @Override
-    public void visit(LocationObserver locationObserver) {
-        byte[] dumpBytes = locationObserver.getLocationBuffer();
-
-        if (dumpBytes != null) {
-            String coordinatesDecoded = EnsureEncoding.decode(dumpBytes);          // detect encoding
-            try {
-                Double coordinates = Double.valueOf(coordinatesDecoded);           // check if the characters can be converted to Double or not
-                if (EpsilonCheck.almostEqualDouble(coordinates, Constants.ASPECT_LATITUDE)) {
-                    logger.printLog("\n\nERROR 1.0 :- Violating security policy. Latitude coordinates has been detected in the HTTP Stream.");
-                }
-                if (EpsilonCheck.almostEqualDouble(coordinates, Constants.ASPECT_LONGITUDE)) {
-                    logger.printLog("\n\nERROR 1.1 :- Violating security policy. Longitude coordinates has been detected in the HTTP Stream.");
-                }
-            } catch (NumberFormatException e) {
-
+                logger.printLog("\n\nERROR 3.2 :- Privacy Violation. Contact email has been detected in HTTP Stream.");
             }
         }
     }

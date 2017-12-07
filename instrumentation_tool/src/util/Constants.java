@@ -12,8 +12,8 @@ public class Constants {
     /**
      *  mock-up geo location coordinates
      */
-    public final static double ASPECT_LATITUDE = 35.88975;              // Randomized pin in Pacific Ocean
-    public final static double ASPECT_LONGITUDE = -135.96679;           // Randomized pin in Pacific Ocean
+    public final static double ASPECT_LATITUDE = 37.794916; //35.88975;              // Randomized pin in Pacific Ocean
+    public final static double ASPECT_LONGITUDE = -122.393117; //-135.96679;           // Randomized pin in Pacific Ocean
 
     /**
      *  mock-up IMEI
