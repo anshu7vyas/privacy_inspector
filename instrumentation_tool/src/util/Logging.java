@@ -40,18 +40,14 @@ public class Logging {
     /**
      * Prints the log message with the StackTrace
      * @param error message
-     * @param arg object
      */
-    public void printLog(String error, Object arg) {
+    public void printLog(String error) {
         final Logger logger = Logger.getLogger("test");
         formatter(logger);
 
-        logger.warning("*******************************************\n" + error + "\n\nHere's the StackTrace...\n");
-        // for (int i=0; i <stackTraceArray.length; i++) {
-        // 	logger.info("\tat " + i +"\n");
-        // }
+        System.out.print("*******************************************\n" + error + "\nHere's the StackTrace...\n");
         for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
-            logger.info("\tat " + element.toString() +"\n");
+            System.out.print("\tat " + element.toString() +"\n");
         }
 
     }

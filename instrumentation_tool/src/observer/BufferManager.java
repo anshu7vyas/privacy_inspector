@@ -1,11 +1,9 @@
 package observer;
 
-import util.Constants;
 import util.SlidingBuffer;
-import visitor.ContactObserver;
-import visitor.DataInspector;
-import visitor.IMEIObserver;
-import visitor.LocationObserver;
+import visitor.*;
+
+import java.util.*;
 
 /**
  * A singleton class that manages all the Sliding Buffers required for analysis.
@@ -14,37 +12,53 @@ import visitor.LocationObserver;
  */
 public class BufferManager implements Observer {
 
-    private static BufferManager bufferManager = null;
+    // Single globalBuffer instance per BufferManager instance
+    public SlidingBuffer globalBuffer = SlidingBuffer.getInstance();
 
-    private BufferManager() { }
+    // Arraylist of Visitables
+    private List<Visitable> visitables = new ArrayList<Visitable>();
+
+    // A hashmap to keep record of different buffer managers for different output streams
+    private static Map<Object, BufferManager> internalMap = new HashMap<Object, BufferManager>();
+
+    private BufferManager() { instantiateVisitables();}
 
     /**
-     * @return a new instance of the BufferManager
+     * Ensures single instance
+     * @return instance of BufferManager according to the Object in the internalMap
      */
-    public static BufferManager getInstance() {
-        if (bufferManager == null) {
-            bufferManager = new BufferManager();
+    public static BufferManager getInstance(Object object) {
+        if (!internalMap.containsKey(object)){
+            internalMap.put(object, new BufferManager());
         }
-
-        return bufferManager;
+        return internalMap.get(object);
     }
 
     /**
-     * Overrides the update() method of Observer Interface to get new Sliding buffers for each of 3 analysis,
-     * namely, IMEI, Geolocation, Contacts
-     *
-     * @param object - different objects for different output streams
+     *  Instantiates the custom sources/plugins and adds to the Arraylist<Visitable>
+     */
+    public void instantiateVisitables() {
+        IMEIObserver imeiObserver = IMEIObserver.getInstance();
+        visitables.add(imeiObserver);
+
+        LocationObserver locationObserver = LocationObserver.getInstance();
+        visitables.add(locationObserver);
+
+        ContactObserver contactObserver = ContactObserver.getInstance();
+        visitables.add(contactObserver);
+    }
+
+    /**
+     * Updates sliding buffers for each visitable and runs the analysis
+     * @param object - signifying an object of a particular OutputStream
      */
     @Override
     public void update(Object object) {
-        IMEIObserver imeiObserver = new IMEIObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.SLIDING_WINDOW_SIZE));
-        imeiObserver.accept(DataInspector.getInstance());
-
-        LocationObserver locationObserver = new LocationObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.DOUBLE_BYTE_SIZE));
-        locationObserver.accept(DataInspector.getInstance());
-
-        ContactObserver contactObserver = new ContactObserver(SlidingBuffer.getInstance(object).getCircularBuffer(Constants.CONTACT_INFO_BYTE_SIZE));
-        contactObserver.accept(DataInspector.getInstance());
-
+        for (Visitable visitable: visitables) {
+            visitable.updateBuffer(object);
+            visitable.accept(DataInspector.getInstance());
+        }
     }
 }
+
+// Observer parent - BufferManager -> visitables are his children. He notifies them once he gets to know.

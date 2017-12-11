@@ -8,23 +8,24 @@ package observer;
 public interface Observable {
 
     /**
-     * Adds an observer to the internal list of observers.
+     * Adds an observer to the internal list of visitableList.
      *
      * @param newObserver
      */
     void registerObserver(Observer newObserver);
 
     /**
-     * Deletes an observer from the internal list of observers.
+     * Deletes an observer from the internal list of visitableList.
      *
      * @param deleteObserver
      */
     void unregisterObserver(Observer deleteObserver);
 
     /**
-     * Checks the internal flag to see if the observable has changed state and notifies all observers.
+     * Checks the internal flag to see if the observable has changed state and notifies all visitableList.
      *
      * @param object
      */
     void notifyObservers(Object object);
+
 }

@@ -14,4 +14,10 @@ public interface Visitable {
      * @param visitor
      */
     void accept(Visitor visitor);
+
+    /**
+     * Fills the buffer byte per byte given the Visitable
+     * @param object
+     */
+    void updateBuffer(Object object);
 }

@@ -2,8 +2,6 @@ package util;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-
-
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
@@ -22,7 +20,7 @@ public class EnsureEncoding {
     }
 
     /**
-     * will try to convert the given chars to a valid string.
+     * Tries to convert the given chars to a valid string.
      *
      * @param chars
      *          characters in an unknown charset
@@ -55,7 +53,8 @@ public class EnsureEncoding {
 
            ByteBuffer byteBuffer = ByteBuffer.wrap(chars);
            CharBuffer decoded = decoder.decode(byteBuffer);
+
            return decoded.toString().replaceAll(Character.toString('\0'), "");
-           // return decoded.toString();
     }
+
 }
