@@ -1,13 +1,9 @@
 package observer;
 
-import java.util.ArrayList;
-import java.util.List;
+//import java.nio.charset.StandardCharsets;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 
@@ -24,27 +20,21 @@ public class HttpAspect implements Observable {
      */
     public byte[] dumpBytes;
 
-    /**
-     * Arraylist of Observers for the OutputStream, which is the Observable
-     */
-    List<Observer> observers = new ArrayList<Observer>();
+    private BufferManager bufferManager;
+
 
     @Override
-    public void registerObserver(Observer newObserver) {
-        observers.add(newObserver);
+    public void registerObserver(Object object) {
+        bufferManager = BufferManager.getInstance(object);
     }
 
     @Override
     public void unregisterObserver(Observer deleteObserver) {
-        int observerIndex = observers.indexOf(deleteObserver);
-        observers.remove(observerIndex);
     }
 
     @Override
     public void notifyObservers(Object object){
-        for(Observer observer: observers) {
-            observer.update(object);
-        }
+        bufferManager.update(object);
     }
 
     /**
@@ -60,26 +50,24 @@ public class HttpAspect implements Observable {
         Object arg[] = joinPoint.getArgs();
 
         dumpBytes = (byte[]) arg[0];
-	    //System.out.println("Inside RetryableOutputStream.write() " + dumpBytes + "\n\n" + Thread.currentThread().getStackTrace());
 
-        registerObserver(BufferManager.getInstance(o));
+        registerObserver(o);
 
         for (int i = 0; i < dumpBytes.length; i++) {
-            BufferManager.getInstance(o).globalBuffer.add(dumpBytes[i]);
+            bufferManager.globalBuffer.add(dumpBytes[i]);
             notifyObservers(o);
         }
 
-        Object obj = joinPoint.proceed();
-        return obj;
+        return joinPoint.proceed();
     }
 
 //    public void aroundWrite(byte[] buffer, Object o) {
 //
 //
-//        registerObserver(BufferManager.getInstance(o));
+//        registerObserver(o);
 //
 //        for (int i = 0; i < buffer.length; i++) {
-//            BufferManager.getInstance(o).globalBuffer.add(buffer[i]);
+//            bufferManager.globalBuffer.add(buffer[i]);
 //            notifyObservers(o);
 //        }
 //    }
@@ -88,12 +76,16 @@ public class HttpAspect implements Observable {
 //        HttpAspect httpAspect = new HttpAspect();
 //
 //        Object obj = 0x9999;
+//        Object obj1 = 0x9911;
 //        byte[] buffer = "424242424242424 34.93281 76.76571 Neanderthals Supersapiens 742-742-4242".getBytes(StandardCharsets.UTF_8);
+//        byte[] buf2 = "37.794916 -122.393117".getBytes(StandardCharsets.UTF_8);
 //
 //        //httpAspect.registerObserver(BufferManager.getInstance());
 //        httpAspect.aroundWrite(buffer, obj);
+//        httpAspect.aroundWrite(buf2, obj1);
 //    }
 
 }
+
 
 

@@ -18,8 +18,11 @@ public class EpsilonCheck {
      * @param b
      * @return true if in equal range, i.e, d - E <= d <= d + E , else false
      */
-    public static boolean almostEqualDouble(double a, double b) {
+    public static boolean epsilonDoubleEqual(double a, double b) {
         if (a == b) return true;
         return Math.abs(a - b) <= Constants.DOUBLE_EPSILON;
     }
 }
+
+
+

@@ -12,7 +12,7 @@ public interface Observable {
      *
      * @param newObserver
      */
-    void registerObserver(Observer newObserver);
+    void registerObserver(Object object);
 
     /**
      * Deletes an observer from the internal list of visitableList.

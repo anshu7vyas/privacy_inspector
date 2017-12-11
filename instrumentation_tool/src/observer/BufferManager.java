@@ -13,7 +13,7 @@ import java.util.*;
 public class BufferManager implements Observer {
 
     // Single globalBuffer instance per BufferManager instance
-    public SlidingBuffer globalBuffer = SlidingBuffer.getInstance();
+    public SlidingBuffer globalBuffer; //= SlidingBuffer.getInstance();
 
     // Arraylist of Visitables
     private List<Visitable> visitables = new ArrayList<Visitable>();
@@ -38,6 +38,8 @@ public class BufferManager implements Observer {
      *  Instantiates the custom sources/plugins and adds to the Arraylist<Visitable>
      */
     public void instantiateVisitables() {
+        globalBuffer = SlidingBuffer.getInstance();
+
         IMEIObserver imeiObserver = IMEIObserver.getInstance();
         visitables.add(imeiObserver);
 
