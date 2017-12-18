@@ -45,11 +45,11 @@ public class DataInspector implements Visitor {
             String coordinatesDecoded = EnsureEncoding.decode(dumpBytes);          // detect encoding
             try {
                 Double coordinates = Double.valueOf(coordinatesDecoded);           // check if the characters can be converted to Double or not
-                if (EpsilonCheck.almostEqualDouble(coordinates, Constants.ASPECT_LATITUDE)) {
-                    logger.printLog("\n\nERROR 1.0 :- Privacy Violation. Latitude coordinates has been detected in the HTTP Stream.");
+                if (EpsilonCheck.epsilonDoubleEqual(coordinates, Constants.ASPECT_LATITUDE)) {
+                    logger.printLog("\n\nERROR 1.0 :- Privacy Violation. Latitude coordinates detected in the HTTP Stream.");
                 }
-                if (EpsilonCheck.almostEqualDouble(coordinates, Constants.ASPECT_LONGITUDE)) {
-                    logger.printLog("\n\nERROR 1.1 :- Privacy Violation. Longitude coordinates has been detected in the HTTP Stream.");
+                if (EpsilonCheck.epsilonDoubleEqual(coordinates, Constants.ASPECT_LONGITUDE)) {
+                    logger.printLog("\n\nERROR 1.1 :- Privacy Violation. Longitude coordinates detected in the HTTP Stream.");
                 }
             } catch (NumberFormatException e) {
 
@@ -66,9 +66,10 @@ public class DataInspector implements Visitor {
         byte[] dumpBytes = imeiObserver.getIMEIBuffer();
 
         if(dumpBytes != null) {
-            String imeiDecoded = EnsureEncoding.decode(dumpBytes);                  // detect encoding
+            String imeiDecoded = EnsureEncoding.decode(dumpBytes);     // Detect Encoding
             if (imeiDecoded.equals(Constants.ASPECT_IMEI)) {
-                logger.printLog("\n\nERROR 2 :- Privacy Violation. IMEI number has been detected in HTTP Stream.");
+                logger.printLog("\n\nERROR 2 :- Possible Privacy Violation. " +
+                                           "IMEI number detected in HTTP Stream.");
             }
         }
     }
@@ -85,13 +86,13 @@ public class DataInspector implements Visitor {
         if(dumpBytes != null) {
             String contactInformation = EnsureEncoding.decode(dumpBytes);           // detect encoding
             if (contactInformation.equals(Constants.ASPECT_CONTACT_FIRST_NAME)) {
-                logger.printLog("\n\nERROR 3.0 :- Privacy Violation. Contact Name has been detected in HTTP Stream.");
+                logger.printLog("\n\nERROR 3.0 :- Privacy Violation. Contact Name detected in HTTP Stream.");
             } else if (contactInformation.equals(Constants.ASPECT_CONTACT_LAST_NAME)) {
-                logger.printLog("\n\nERROR 3.0 :- Privacy Violation. Contact Last Name has been detected in HTTP Stream.");
+                logger.printLog("\n\nERROR 3.0 :- Privacy Violation. Contact Last Name detected in HTTP Stream.");
             } else if (contactInformation.equals(Constants.ASPECT_CONTACT_NUMBER)) {
-                logger.printLog("\n\nERROR 3.1 :- Privacy Violation. Contact phone number has been detected in HTTP Stream.");
+                logger.printLog("\n\nERROR 3.1 :- Privacy Violation. Contact phone number detected in HTTP Stream.");
             } else if (contactInformation.equals(Constants.ASPECT_CONTACT_EMAIL)) {
-                logger.printLog("\n\nERROR 3.2 :- Privacy Violation. Contact email has been detected in HTTP Stream.");
+                logger.printLog("\n\nERROR 3.2 :- Privacy Violation. Contact email detected in HTTP Stream.");
             }
         }
     }

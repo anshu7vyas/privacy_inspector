@@ -27,9 +27,11 @@ public class IMEIAspect {
      * @return mock-up IMEI defined in the Constants.java
      * @throws Throwable
      */
+
     @Around("execution (String android.telephony.TelephonyManager.getDeviceId(..))")
     public String adviceGetIMEI(final ProceedingJoinPoint joinPoint) throws Throwable {
         joinPoint.proceed();
         return Constants.ASPECT_IMEI;
     }
 }
+

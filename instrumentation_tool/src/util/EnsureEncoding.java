@@ -54,7 +54,7 @@ public class EnsureEncoding {
            ByteBuffer byteBuffer = ByteBuffer.wrap(chars);
            CharBuffer decoded = decoder.decode(byteBuffer);
 
-           return decoded.toString().replaceAll(Character.toString('\0'), "");
+           return decoded.toString().replaceAll(Character.toString('\00'), "");
     }
 
 }

@@ -29,9 +29,9 @@ public class Constants {
     public final static String ASPECT_CONTACT_EMAIL = "neo@super.co";
 
     /**
-     *  EPSILON = 0.00001
+     *  EPSILON = 0.7
      */
-    public final static double DOUBLE_EPSILON = 0.00001;
+    public final static double DOUBLE_EPSILON = 0.7;
 
     /**
      *  Maximum size of Sliding Buffer

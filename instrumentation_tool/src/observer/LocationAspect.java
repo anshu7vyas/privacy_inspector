@@ -26,6 +26,7 @@ public class LocationAspect {
      * @return mock-up Latitude coordinate defined in the Constants.java
      * @throws Throwable
      */
+
     @Around("execution (double android.location.Location.getLatitude(..))")
     public double adviceGetLatitude(final ProceedingJoinPoint joinPoint) throws Throwable {
         joinPoint.proceed();
