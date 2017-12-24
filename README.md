@@ -1,6 +1,6 @@
-# privacy_inspector
+# Privacy Inspector
 
-The Privacy Protection tool enables the users to test-monitor-analyze the behavior of all installed apps on Android and recognizes possible privacy loopholes. Privacy Protection tool uses Aspect Oriented Programming to weave custom aspects into Android platform. The primary objective is to enhance Android platform, by implementing the aspect way to monitor and log whenever apps make use of privacy-sensitive API. This means our injected aspects blend well with the platform and work together to alert users about privacy leaks.
+The primary objective of this project is to enhance the Android platform, by implementing a new tool to monitor and log whenever applications use privacy-sensitive API. The Privacy Inspection tool enables the users to test, monitor, and analyze the behavior of any application on Android and recognize possible privacy loopholes. Privacy Inspector uses Aspect Oriented Programming to weave custom aspects into the Android platform. In this way our injected aspects blend with the platform and work together to alert users about privacy leaks.
 
 #### To use this tool, you'll need to instrument the AOSP build using [Instrumentation_tool](https://github.com/poojakanchan/instrumentation_tool)
 
